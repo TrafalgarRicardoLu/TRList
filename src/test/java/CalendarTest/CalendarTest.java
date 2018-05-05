@@ -20,6 +20,22 @@ public class CalendarTest {
 
     @Test
     public void createNewCalendar() throws IOException, ParserException {
+        String in = "/home/trafalgar/IdeaProjects/TRList/src/test/java/CalendarTest/test.ics";
+
+        FileInputStream fin = new FileInputStream(in);
+        CalendarBuilder builder = new CalendarBuilder();
+        Calendar calendar = builder.build(fin);
+
+//
+//
+        String out = "/home/trafalgar/IdeaProjects/TRList/src/test/java/CalendarTest/testOut.ics";
+        FileOutputStream fout = new FileOutputStream(out);
+        CalendarOutputter outputter = new CalendarOutputter();
+        outputter.output(calendar, fout);
+    }
+
+    @Test
+    public void addInfoToCalendar(){
         Calendar calendar = new Calendar();
         calendar.getProperties().add(new ProdId("-//Ben Fortuna//iCal4j 1.0//EN"));
         calendar.getProperties().add(Version.VERSION_2_0);
