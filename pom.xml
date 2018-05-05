@@ -46,7 +46,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>libs/</classpathPrefix>
-                            <mainClass>ui.Main</mainClass>
+                            <mainClass>view.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -65,6 +65,11 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>jcache</artifactId>
+            <version>1.0.1</version>
         </dependency>
     </dependencies>
 
