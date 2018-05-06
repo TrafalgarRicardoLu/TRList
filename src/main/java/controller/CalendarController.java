@@ -5,7 +5,19 @@ package controller;
  */
 public class CalendarController {
 
-    public void createNewCalendar(){
+    public void createCalendar(){
+
+    }
+
+    public void deleteCalendar(){
+
+    }
+
+    public void updateCalendar(){
+
+    }
+
+    public void readCalendar(){
 
     }
 }
