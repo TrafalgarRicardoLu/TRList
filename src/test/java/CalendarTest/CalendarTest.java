@@ -9,12 +9,10 @@ import net.fortuna.ical4j.model.property.ProdId;
 import net.fortuna.ical4j.model.property.Version;
 import org.junit.Test;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import static java.io.FileDescriptor.out;
 
 public class CalendarTest {
 

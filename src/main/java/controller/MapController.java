@@ -12,13 +12,11 @@ import java.util.Set;
  */
 public class MapController {
 
-    Maps maps;
+    private static final String label = "label";
+    private static final String priority = "priority";
+    private static final String project = "project";
 
-    private String label = "label";
-    private String priority = "priority";
-    private String project = "project";
-
-    public HashMap getMapByMapName(String mapName){
+    public static HashMap getMapByMapName(String mapName){
         if(mapName.equals(label)){
             return Maps.getLabelMap();
         }else if(mapName.equals(priority)){
@@ -29,11 +27,11 @@ public class MapController {
         return null;
     }
 
-    public Set getItemsByMuneName(String menuName){
-        return getMapByMapName(menuName).entrySet();
+    public static Set<String> getItemsByMenuName(String menuName){
+        return getMapByMapName(menuName).keySet();
     }
 
-    public List<Event> getEventByFilterName(String menuName, String filterName){
+    public static List<Event> getEventByFilterName(String menuName, String filterName){
         return (List<Event>) getMapByMapName(menuName).get(filterName);
     }
 }

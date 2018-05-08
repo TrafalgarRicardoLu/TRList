@@ -1,5 +1,7 @@
 package entity;
 
+import org.apache.commons.collections4.list.TreeList;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,7 +15,7 @@ public class Maps {
 
     private static HashMap<String, List<Event>> projectMap = new HashMap<>();
 
-    public static void initMaps() {
+    private static void initMaps() {
 
     }
 

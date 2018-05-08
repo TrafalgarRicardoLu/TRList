@@ -1,6 +1,7 @@
 package view;
 
 import com.sun.xml.internal.bind.v2.TODO;
+import controller.MapController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,10 +19,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+import java.lang.reflect.Array;
+import java.util.Set;
+
 /**
  * @author trafalgar
  */
-public class Main extends Application {
+public class TRList extends Application {
 
 
 
@@ -37,10 +41,17 @@ public class Main extends Application {
         ListView projectList = new ListView();
         ListView priorityList = new ListView();
 
-        /*
-        /TODO
-        /read map info and put it to List
-        */
+        Object[] labelContent = MapController.getItemsByMenuName("label").toArray();
+        Object[] projectContent = MapController.getItemsByMenuName("project").toArray();
+        Object[] priorityContent = MapController.getItemsByMenuName("priority").toArray();
+
+        ObservableList<Object> labelItems =FXCollections.observableArrayList (labelContent);
+        ObservableList<Object> projectItems =FXCollections.observableArrayList (projectContent);
+        ObservableList<Object> priorityItems =FXCollections.observableArrayList (priorityContent);
+
+        labelList.setItems(labelItems);
+        projectList.setItems(projectItems);
+        priorityList.setItems(priorityItems);
 
         TitledPane label = new TitledPane("Label",labelList);
         TitledPane project = new TitledPane("Project",projectList);
