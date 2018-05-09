@@ -1,5 +1,6 @@
 package CalendarTest;
 
+import controller.CalendarController;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.data.ParserException;
@@ -16,20 +17,23 @@ import java.io.IOException;
 
 public class CalendarTest {
 
+
     @Test
     public void createNewCalendar() throws IOException, ParserException {
-        String in = "/home/trafalgar/IdeaProjects/TRList/src/test/java/CalendarTest/test.ics";
-
-        FileInputStream fin = new FileInputStream(in);
-        CalendarBuilder builder = new CalendarBuilder();
-        Calendar calendar = builder.build(fin);
-
+//        String in = "/home/trafalgar/IdeaProjects/TRList/src/test/java/CalendarTest/test.ics";
 //
+//        FileInputStream fin = new FileInputStream(in);
+//        CalendarBuilder builder = new CalendarBuilder();
+//        Calendar calendar = builder.build(fin);
 //
-        String out = "/home/trafalgar/IdeaProjects/TRList/src/test/java/CalendarTest/testOut.ics";
-        FileOutputStream fout = new FileOutputStream(out);
-        CalendarOutputter outputter = new CalendarOutputter();
-        outputter.output(calendar, fout);
+////
+////
+//        String out = "/home/trafalgar/IdeaProjects/TRList/src/test/java/CalendarTest/testOut.ics";
+//        FileOutputStream fout = new FileOutputStream(out);
+//        CalendarOutputter outputter = new CalendarOutputter();
+//        outputter.output(calendar, fout);
+        CalendarController calendarController = new CalendarController();
+        calendarController.createCalendar();
     }
 
     @Test
