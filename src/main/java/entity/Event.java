@@ -1,6 +1,7 @@
 package entity;
 
 import net.fortuna.ical4j.model.Calendar;
+import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.ProdId;
 
 /**
@@ -8,23 +9,13 @@ import net.fortuna.ical4j.model.property.ProdId;
  */
 public class Event {
 
-    private Calendar calendar;
+    private VEvent activity;
 
     private String priority;
 
     private String label;
 
     private String project;
-
-    private ProdId id = calendar.getProductId();
-
-    public Calendar getCalendar() {
-        return calendar;
-    }
-
-    public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
-    }
 
     public String getPriority() {
         return priority;
@@ -50,7 +41,12 @@ public class Event {
         this.project = project;
     }
 
-    public ProdId getId() {
-        return id;
+
+    public VEvent getActivity() {
+        return activity;
+    }
+
+    public void setActivity(VEvent activity) {
+        this.activity = activity;
     }
 }
