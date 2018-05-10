@@ -1,6 +1,7 @@
 package CalendarTest;
 
 import controller.CalendarController;
+import entity.Event;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.data.ParserException;
@@ -13,6 +14,7 @@ import org.junit.Test;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 
 public class CalendarTest {
@@ -20,28 +22,20 @@ public class CalendarTest {
 
     @Test
     public void createNewCalendar() throws IOException, ParserException {
-//        String in = "/home/trafalgar/IdeaProjects/TRList/src/test/java/CalendarTest/test.ics";
-//
-//        FileInputStream fin = new FileInputStream(in);
-//        CalendarBuilder builder = new CalendarBuilder();
-//        Calendar calendar = builder.build(fin);
-//
-////
-////
-//        String out = "/home/trafalgar/IdeaProjects/TRList/src/test/java/CalendarTest/testOut.ics";
-//        FileOutputStream fout = new FileOutputStream(out);
-//        CalendarOutputter outputter = new CalendarOutputter();
-//        outputter.output(calendar, fout);
         CalendarController calendarController = new CalendarController();
         calendarController.createCalendar();
+        System.out.println(UUID.randomUUID());
     }
 
     @Test
-    public void addInfoToCalendar(){
-        Calendar calendar = new Calendar();
-        calendar.getProperties().add(new ProdId("-//Ben Fortuna//iCal4j 1.0//EN"));
-        calendar.getProperties().add(Version.VERSION_2_0);
-        calendar.getProperties().add(CalScale.GREGORIAN);
-        System.out.println(calendar);
+    public void deleteCalendar(){
+        CalendarController calendarController = new CalendarController();
+        calendarController.deleteCalendar();
+    }
+
+    @Test
+    public void addInfoToCalendar() throws IOException, ParserException {
+        CalendarController calendarController = new CalendarController();
+        calendarController.updateCalendar(new Event());
     }
 }

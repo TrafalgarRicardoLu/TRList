@@ -5,6 +5,9 @@ import java.io.InputStream;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+/**
+ * @author trafalgar
+ */
 public class propertyGenerator {
 
 

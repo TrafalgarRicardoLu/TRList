@@ -11,13 +11,12 @@ import net.fortuna.ical4j.model.parameter.Cn;
 import net.fortuna.ical4j.model.parameter.Role;
 import net.fortuna.ical4j.model.property.*;
 import utils.UidGenerator;
+import utils.propertyGenerator;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
-import java.util.GregorianCalendar;
 
 
 /**
@@ -25,22 +24,29 @@ import java.util.GregorianCalendar;
  */
 public class CalendarController {
 
-    public void createCalendar() throws IOException, ParserException {
-        String calendarPath = "/home/trafalgar/IdeaProjects/TRList/src/test/java/CalendarTest/Test.ics";
-        File calendarFile = new File(calendarPath);
+    private static String calendarPath;
+    private static File calendarFile;
+
+    static {
+        calendarPath = propertyGenerator.getProperties("filePath");
+        calendarFile = new File(calendarPath);
+    }
+
+
+    public void createCalendar() throws IOException{
         if (!calendarFile.exists()) {
             calendarFile.createNewFile();
         }
     }
 
     public void deleteCalendar() {
-
+        if(calendarFile.exists()){
+            calendarFile.delete();
+        }
+        return;
     }
 
     public void updateCalendar(Event event) throws IOException, ParserException {
-        String calendarPath = "/home/trafalgar/IdeaProjects/TRList/src/test/java/CalendarTest/Test.ics";
-        File calendarFile = new File(calendarPath);
-
         // Create Calendar
         FileInputStream fin = new FileInputStream(calendarPath);
         CalendarBuilder builder = new CalendarBuilder();
