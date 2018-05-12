@@ -15,36 +15,39 @@ import java.util.List;
  */
 public class XMLGenerator {
 
-    public static HashMap<String,List> getUidsByFilterName() throws DocumentException {
+    public static List<Element> getFiltersByMenuName(String menuName) throws DocumentException {
         SAXReader reader = new SAXReader();
         File file = new File("/home/trafalgar/IdeaProjects/TRList/src/test/java/utilsTest/1.xml");
         Document document = reader.read(file);
         Element root = document.getRootElement();
-        Element label = root.element("label");
-        Element project = root.element("project");
-        Element priority = root.element("priority");
-        List<Element> uidElementLabel = label.elements();
-        List<Element> uidElementProject = priority.elements();
-        List<Element> uidElementPriority = priority.elements();
+        Element menu = root.element(menuName);
+        return menu.elements();
+    }
 
-        List<String> uidLabel = new LinkedList<>();
-        List<String> uidProject = new LinkedList<>();
-        List<String> uidPriority = new LinkedList<>();
+    public static List<String> getFilterNamesByMenuName(String menuName) throws DocumentException {
+        List<Element> filters = getFiltersByMenuName(menuName);
+        List<String> filterNames = new LinkedList<>();
 
-        for (Element uid : uidElementLabel) {
-                uidLabel.add(uid.getText());
-        }
-        for(Element uid:uidElementProject){
-                uidProject.add(uid.getText());
-        }
-        for(Element uid:uidElementPriority){
-                uidPriority.add(uid.getText());
+        for(Element filter:filters){
+            filterNames.add((String) filter.attribute("name").getData());
         }
 
-        HashMap<String,List> uidMap = new HashMap<>();
-        uidMap.put("label",uidLabel);
-        uidMap.put("project",uidProject);
-        uidMap.put("priority",uidPriority);
-        return uidMap;
+        return filterNames;
+    }
+
+    public static List<String> getUidsByFilterName(String menuName, String filterName) throws DocumentException {
+        List<Element> filters = getFiltersByMenuName(menuName);
+        List<String> uids = new LinkedList<>();
+
+        for (Element filter : filters) {
+            if (filter.attribute("name").getData().equals(filterName)) {
+                List<Element> tempUids = filter.elements();
+                for (Element uid : tempUids) {
+                    uids.add(uid.getText());
+                }
+            }
+        }
+
+        return uids;
     }
 }

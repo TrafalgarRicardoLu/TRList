@@ -1,5 +1,6 @@
 package view;
 
+import com.sun.xml.internal.bind.XmlAccessorFactory;
 import com.sun.xml.internal.bind.v2.TODO;
 import controller.MapController;
 import javafx.application.Application;
@@ -18,6 +19,7 @@ import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import utils.XMLGenerator;
 
 import java.lang.reflect.Array;
 import java.util.Set;
@@ -41,13 +43,13 @@ public class TRList extends Application {
         ListView projectList = new ListView();
         ListView priorityList = new ListView();
 
-        Object[] labelContent = MapController.getItemsByMenuName("label").toArray();
-        Object[] projectContent = MapController.getItemsByMenuName("project").toArray();
-        Object[] priorityContent = MapController.getItemsByMenuName("priority").toArray();
+        Object[] labelFilters = XMLGenerator.getFilterNamesByMenuName("label").toArray();
+        Object[] projectFilters = XMLGenerator.getFilterNamesByMenuName("project").toArray();
+        Object[] priorityFilters = XMLGenerator.getFilterNamesByMenuName("priority").toArray();
 
-        ObservableList<Object> labelItems =FXCollections.observableArrayList (labelContent);
-        ObservableList<Object> projectItems =FXCollections.observableArrayList (projectContent);
-        ObservableList<Object> priorityItems =FXCollections.observableArrayList (priorityContent);
+        ObservableList<Object> labelItems =FXCollections.observableArrayList (labelFilters);
+        ObservableList<Object> projectItems =FXCollections.observableArrayList (projectFilters);
+        ObservableList<Object> priorityItems =FXCollections.observableArrayList (priorityFilters);
 
         labelList.setItems(labelItems);
         projectList.setItems(projectItems);

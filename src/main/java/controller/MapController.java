@@ -27,7 +27,7 @@ public class MapController {
         return null;
     }
 
-    public static Set<String> getItemsByMenuName(String menuName){
+    public static Set<String> getFiltersByMenuName(String menuName){
         return getMapByMapName(menuName).keySet();
     }
 

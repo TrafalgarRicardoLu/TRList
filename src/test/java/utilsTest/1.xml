@@ -2,13 +2,21 @@
 <data xmlns="http://www.TRList.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://www.TRList.com data.xsd">
     <label>
-        <uid>1</uid>
-        <uid>2</uid>
+        <filter name="shopping">
+            <uid>1</uid>
+        </filter>
+        <filter name="working">
+            <uid>2</uid>
+        </filter>
     </label>
     <project>
-        <uid>3</uid>
+        <filter name="TRList">
+            <uid>3</uid>
+        </filter>
     </project>
     <priority>
-        <uid>4</uid>
+        <filter name="First">
+            <uid>4</uid>
+        </filter>
     </priority>
 </data>

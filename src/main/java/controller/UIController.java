@@ -29,6 +29,12 @@ public class UIController {
     }
 
     @FXML
+    public void handleFilterClick(){
+
+    }
+
+
+    @FXML
     public void handleSaveClike(){
 
         TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
