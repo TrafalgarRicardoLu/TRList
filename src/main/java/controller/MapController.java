@@ -1,7 +1,7 @@
 package controller;
 
-import entity.Event;
-import entity.Maps;
+import model.Event;
+import model.Maps;
 
 import java.util.HashMap;
 import java.util.List;

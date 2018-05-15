@@ -1,18 +1,10 @@
 package CalendarTest;
 
 import controller.CalendarController;
-import entity.Event;
-import net.fortuna.ical4j.data.CalendarBuilder;
-import net.fortuna.ical4j.data.CalendarOutputter;
+import model.Event;
 import net.fortuna.ical4j.data.ParserException;
-import net.fortuna.ical4j.model.Calendar;
-import net.fortuna.ical4j.model.property.CalScale;
-import net.fortuna.ical4j.model.property.ProdId;
-import net.fortuna.ical4j.model.property.Version;
 import org.junit.Test;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 

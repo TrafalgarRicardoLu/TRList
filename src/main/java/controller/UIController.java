@@ -1,6 +1,6 @@
 package controller;
 
-import entity.Maps;
+import model.Maps;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

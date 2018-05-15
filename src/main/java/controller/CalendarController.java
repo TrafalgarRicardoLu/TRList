@@ -1,16 +1,10 @@
 package controller;
 
-import entity.Event;
+import model.Event;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.data.ParserException;
-import net.fortuna.ical4j.model.*;
-import net.fortuna.ical4j.model.component.VEvent;
-import net.fortuna.ical4j.model.component.VTimeZone;
-import net.fortuna.ical4j.model.parameter.Cn;
-import net.fortuna.ical4j.model.parameter.Role;
 import net.fortuna.ical4j.model.property.*;
-import utils.UidGenerator;
 import utils.propertyGenerator;
 
 import java.io.File;
@@ -28,7 +22,7 @@ public class CalendarController {
     private static File calendarFile;
 
     static {
-        calendarPath = propertyGenerator.getProperties("filePath");
+        calendarPath = propertyGenerator.getProperties("calendarPath");
         calendarFile = new File(calendarPath);
     }
 
@@ -47,7 +41,7 @@ public class CalendarController {
     }
 
     public void updateCalendar(Event event) throws IOException, ParserException {
-        // Create Calendar
+
         FileInputStream fin = new FileInputStream(calendarPath);
         CalendarBuilder builder = new CalendarBuilder();
         net.fortuna.ical4j.model.Calendar calendar = builder.build(fin);
