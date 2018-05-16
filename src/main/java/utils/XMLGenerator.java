@@ -5,6 +5,7 @@ import org.dom4j.*;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
+import utils.conf.ConfigHelper;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -17,11 +18,12 @@ import java.util.List;
  */
 public class XMLGenerator {
 
-    static Document document;
+    private static Document document;
+    private static final String XMLPath = ConfigHelper.getXMLPath();
 
     static {
         SAXReader reader = new SAXReader();
-        File file = new File("/home/trafalgar/IdeaProjects/TRList/src/test/java/utilsTest/1.xml");
+        File file = new File(XMLPath);
         try {
             document = reader.read(file);
         } catch (DocumentException e) {
@@ -63,7 +65,6 @@ public class XMLGenerator {
     }
 
     public static void createXML() throws IOException {
-        String XMLPath = propertyGenerator.getProperties("XMLPath");
         File dividedFile = new File(XMLPath);
         if (!dividedFile.exists()) {
             dividedFile.createNewFile();
@@ -86,7 +87,7 @@ public class XMLGenerator {
 
         OutputFormat format = OutputFormat.createPrettyPrint();
         format.setEncoding("UTF-8");
-        XMLWriter writer = new XMLWriter(new FileWriter("/home/trafalgar/IdeaProjects/TRList/src/test/java/utilsTest/1.xml"), format);
+        XMLWriter writer = new XMLWriter(new FileWriter(XMLPath), format);
         writer.write(document);
         writer.close();
     }
@@ -103,15 +104,15 @@ public class XMLGenerator {
         }
 
         List<Element> uids = filter.elements();
-
         for (Element i : uids) {
             if (i.getText().equals(uid)) {
                 filter.remove(i);
             }
         }
+
         OutputFormat format = OutputFormat.createPrettyPrint();
         format.setEncoding("UTF-8");
-        XMLWriter writer = new XMLWriter(new FileWriter("/home/trafalgar/IdeaProjects/TRList/src/test/java/utilsTest/1.xml"), format);
+        XMLWriter writer = new XMLWriter(new FileWriter(XMLPath), format);
         writer.write(document);
         writer.close();
     }

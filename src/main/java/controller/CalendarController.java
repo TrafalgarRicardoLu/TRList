@@ -5,7 +5,7 @@ import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.property.*;
-import utils.propertyGenerator;
+import utils.conf.ConfigHelper;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,11 +18,10 @@ import java.io.IOException;
  */
 public class CalendarController {
 
-    private static String calendarPath;
+    private static final String calendarPath = ConfigHelper.getCalendarPath();
     private static File calendarFile;
 
     static {
-        calendarPath = propertyGenerator.getProperties("calendarPath");
         calendarFile = new File(calendarPath);
     }
 

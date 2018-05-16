@@ -1,15 +1,15 @@
 package utilsTest;
 
 import org.junit.Test;
-import utils.propertyGenerator;
+import utils.conf.ConfigHelper;
 
 import java.io.IOException;
-import java.util.Properties;
 
 public class utilTest {
 
     @Test
     public void testProperties() throws IOException {
-        System.out.println(propertyGenerator.getProperties("filePath"));
+        System.out.println(ConfigHelper.getCalendarPath());
+        System.out.println(ConfigHelper.getXMLPath());
     }
 }
