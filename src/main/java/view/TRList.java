@@ -1,28 +1,15 @@
 package view;
 
-import com.sun.xml.internal.bind.XmlAccessorFactory;
-import com.sun.xml.internal.bind.v2.TODO;
-import controller.MapController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
-import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import utils.XMLGenerator;
-
-import java.lang.reflect.Array;
-import java.util.Set;
+import utils.xml.XMLGenerator;
 
 /**
  * @author trafalgar

@@ -8,8 +8,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.junit.Test;
-import utils.UidGenerator;
-import utils.XMLGenerator;
+import utils.xml.UidGenerator;
+import utils.xml.XMLGenerator;
 
 import java.io.File;
 import java.io.IOException;

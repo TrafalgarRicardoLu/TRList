@@ -3,10 +3,7 @@ package utils.conf;
 import java.util.Properties;
 
 /**
- * 属性文件助手类
- *
- * @author liuzm@gveoe.cn
- * @since 2017-07-05.
+ * @author trafalgar
  */
 public final class ConfigHelper {
 

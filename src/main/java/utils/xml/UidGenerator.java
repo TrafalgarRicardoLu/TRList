@@ -1,4 +1,4 @@
-package utils;
+package utils.xml;
 
 import net.fortuna.ical4j.model.property.Uid;
 

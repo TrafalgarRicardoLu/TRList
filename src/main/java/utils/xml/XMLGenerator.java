@@ -1,4 +1,4 @@
-package utils;
+package utils.xml;
 
 import model.Event;
 import org.dom4j.*;

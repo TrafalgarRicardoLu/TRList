@@ -11,7 +11,7 @@ import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.component.VTimeZone;
 import net.fortuna.ical4j.model.property.Uid;
-import utils.UidGenerator;
+import utils.xml.UidGenerator;
 
 import java.util.GregorianCalendar;
 

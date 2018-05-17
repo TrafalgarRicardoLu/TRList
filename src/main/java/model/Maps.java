@@ -1,7 +1,7 @@
 package model;
 
 import org.dom4j.DocumentException;
-import utils.XMLGenerator;
+import utils.xml.XMLGenerator;
 
 import java.util.HashMap;
 import java.util.LinkedList;

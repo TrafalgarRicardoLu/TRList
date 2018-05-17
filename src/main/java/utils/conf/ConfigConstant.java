@@ -1,10 +1,8 @@
 package utils.conf;
 
+
 /**
- * 提供相关配置项常亮
- *
- * @author liuzm@gveoe.cn
- * @since 2017-07-05.
+ * @author trafalgar
  */
 public interface ConfigConstant {
 
