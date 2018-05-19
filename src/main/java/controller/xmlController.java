@@ -1,4 +1,4 @@
-package utils.xml;
+package controller;
 
 import net.fortuna.ical4j.model.component.VEvent;
 import org.dom4j.*;
@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * @author trafalgar
  */
-public class XMLGenerator {
+public class xmlController {
 
     private static Document document;
     private static final String XMLPath = ConfigHelper.getXMLPath();

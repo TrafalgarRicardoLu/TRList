@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.control.ListView;
 import model.Maps;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +12,7 @@ import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.component.VTimeZone;
 import net.fortuna.ical4j.model.property.Uid;
-import utils.xml.UidGenerator;
+import utils.UidGenerator;
 
 import java.util.GregorianCalendar;
 
@@ -23,6 +24,9 @@ public class UIController {
     Maps maps;
 
     @FXML
+    private ListView labelList;
+
+    @FXML
     public void handlerBtnClick(ActionEvent event) {
         Button btnSource = (Button) event.getSource();
         btnSource.setText("I am clicked!");
@@ -30,7 +34,7 @@ public class UIController {
 
     @FXML
     public void handleFilterClick(){
-
+        System.out.println("clicked on " + labelList.getSelectionModel().getSelectedItem());
     }
 
 

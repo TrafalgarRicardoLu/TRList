@@ -8,7 +8,7 @@ import net.fortuna.ical4j.model.Property;
 import net.fortuna.ical4j.model.component.VEvent;
 import org.dom4j.DocumentException;
 import utils.conf.ConfigHelper;
-import utils.xml.XMLGenerator;
+import controller.xmlController;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,9 +31,9 @@ public class Maps {
 
 
     private Maps() throws DocumentException, IOException, ParserException {
-        List<String> labelFilter = XMLGenerator.getFilterNamesByMenuName("label");
-        List<String> projectFilter = XMLGenerator.getFilterNamesByMenuName("project");
-        List<String> priorityFilter = XMLGenerator.getFilterNamesByMenuName("priority");
+        List<String> labelFilter = xmlController.getFilterNamesByMenuName("label");
+        List<String> projectFilter = xmlController.getFilterNamesByMenuName("project");
+        List<String> priorityFilter = xmlController.getFilterNamesByMenuName("priority");
 
         FileInputStream fin = new FileInputStream(ConfigHelper.getCalendarPath());
         CalendarBuilder builder = new CalendarBuilder();
@@ -44,7 +44,7 @@ public class Maps {
 
         for (String filterName : labelFilter) {
             List<VEvent> events = new LinkedList<>();
-            List<String> labelUids = XMLGenerator.getUidsByFilterName("label", filterName);
+            List<String> labelUids = xmlController.getUidsByFilterName("label", filterName);
             for (String uid : labelUids) {
                 Component event = indexedEvents.getComponent(uid);
                 events.add((VEvent) event);
@@ -54,7 +54,7 @@ public class Maps {
 
         for (String filterName : projectFilter) {
             List<VEvent> events = new LinkedList<>();
-            List<String> projectUids = XMLGenerator.getUidsByFilterName("project", filterName);
+            List<String> projectUids = xmlController.getUidsByFilterName("project", filterName);
 
             for (String uid : projectUids) {
                 Component event = indexedEvents.getComponent(uid);
@@ -65,7 +65,7 @@ public class Maps {
 
         for (String filterName : priorityFilter) {
             List<VEvent> events = new LinkedList<>();
-            List<String> priorityUids = XMLGenerator.getUidsByFilterName("priority", filterName);
+            List<String> priorityUids = xmlController.getUidsByFilterName("priority", filterName);
 
             for (String uid : priorityUids) {
                 Component event = indexedEvents.getComponent(uid);

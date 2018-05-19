@@ -7,8 +7,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.junit.Test;
-import utils.xml.UidGenerator;
-import utils.xml.XMLGenerator;
+import utils.UidGenerator;
+import controller.xmlController;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class XMLTest {
 
     @Test
     public void testGetUids() throws DocumentException {
-        XMLGenerator xmlGenerator = new XMLGenerator();
+        xmlController xmlGenerator = new xmlController();
         List<String> uids = xmlGenerator.getUidsByFilterName("project", "TRList");
         if (uids == null) {
             System.out.println(1);
@@ -52,7 +52,7 @@ public class XMLTest {
         UidGenerator uidGenerator = new UidGenerator();
         Uid uid = uidGenerator.generateUid();
         vEvent.getProperties().add(uid);
-        XMLGenerator.addUid("label", "shopping", vEvent);
+        xmlController.addUid("label", "shopping", vEvent);
     }
 
     @Test
@@ -61,6 +61,6 @@ public class XMLTest {
         UidGenerator uidGenerator = new UidGenerator();
         Uid uid = uidGenerator.generateUid();
         vEvent.getProperties().add(uid);
-        XMLGenerator.deleteUid("label", "shopping", vEvent);
+        xmlController.deleteUid("label", "shopping", vEvent);
     }
 }

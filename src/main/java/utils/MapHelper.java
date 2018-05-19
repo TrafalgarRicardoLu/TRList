@@ -1,4 +1,4 @@
-package controller;
+package utils;
 
 import model.Maps;
 import net.fortuna.ical4j.model.component.VEvent;
@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * @author trafalgar
  */
-public class MapController {
+public class MapHelper {
 
     private static final String label = "label";
     private static final String priority = "priority";
@@ -27,7 +27,7 @@ public class MapController {
         return null;
     }
 
-    public static Set<String> getFiltersByMenuName(String menuName){
+    public static Set<String> getFilterNamesByMenuName(String menuName){
         return getMapByMapName(menuName).keySet();
     }
 
