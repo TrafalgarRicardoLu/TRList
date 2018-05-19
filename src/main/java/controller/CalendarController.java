@@ -1,6 +1,5 @@
 package controller;
 
-import model.Event;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.data.ParserException;
@@ -30,7 +29,6 @@ public class CalendarController {
         calendarFile = new File(calendarPath);
     }
 
-
     public void createCalendar() throws IOException {
         if (!calendarFile.exists()) {
             calendarFile.createNewFile();
@@ -43,13 +41,13 @@ public class CalendarController {
         }
     }
 
-    public void updateCalendar(Event event) throws IOException, ParserException {
+    public void updateCalendar(VEvent vEvent) throws IOException, ParserException {
 
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_VALIDATION, true);
 
         FileInputStream fin = new FileInputStream(calendarPath);
         CalendarBuilder builder = new CalendarBuilder();
-        net.fortuna.ical4j.model.Calendar calendar =builder.build(fin);
+        net.fortuna.ical4j.model.Calendar calendar = builder.build(fin);
 
         if (calendarFile.exists() && calendarFile.length() == 0) {
             calendar.getProperties().add(new ProdId("-//Events Calendar//iCal4j 1.0//EN"));
@@ -60,15 +58,12 @@ public class CalendarController {
         IndexedComponentList indexedEvents = new IndexedComponentList(
                 calendar.getComponents(Component.VEVENT), Property.UID);
 
-        VEvent activity = event.getActivity();
-        Component existing = indexedEvents.getComponent(event.getActivity().getUid().getValue());
+        Component existing = indexedEvents.getComponent(vEvent.getUid().getValue());
         if (existing == null) {
-            System.out.println("not exist");
-            calendar.getComponents().add(activity);
+            calendar.getComponents().add(vEvent);
         } else {
-            System.out.println("exist");
             calendar.getComponents().remove(existing);
-            calendar.getComponents().add(activity);
+            calendar.getComponents().add(vEvent);
         }
 
         FileOutputStream fileOutputStream = new FileOutputStream(calendarFile);
@@ -78,19 +73,18 @@ public class CalendarController {
         } catch (IOException e) {
             e.printStackTrace();
             return;
-        }finally {
+        } finally {
             fileOutputStream.close();
         }
     }
 
     public List<VEvent> readCalendar() throws IOException, ParserException {
-
         FileInputStream fin = new FileInputStream(calendarPath);
         CalendarBuilder builder = new CalendarBuilder();
-        net.fortuna.ical4j.model.Calendar myCalendar = builder.build(fin);
+        net.fortuna.ical4j.model.Calendar calendar = builder.build(fin);
 
         List<VEvent> vEvents = new LinkedList<>();
-        for (Iterator i = myCalendar.getComponents(Component.VEVENT).iterator(); i.hasNext(); ) {
+        for (Iterator i = calendar.getComponents(Component.VEVENT).iterator(); i.hasNext(); ) {
             VEvent event = (VEvent) i.next();
             vEvents.add(event);
         }

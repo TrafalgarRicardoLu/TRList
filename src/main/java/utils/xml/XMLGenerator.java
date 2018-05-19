@@ -1,6 +1,6 @@
 package utils.xml;
 
-import model.Event;
+import net.fortuna.ical4j.model.component.VEvent;
 import org.dom4j.*;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
@@ -71,8 +71,8 @@ public class XMLGenerator {
         }
     }
 
-    public static void addEventUid(String menuName, String filterName, Event event) throws DocumentException, IOException {
-        String uid = event.getActivity().getUid().getValue();
+    public static void addUid(String menuName, String filterName, VEvent vEvent) throws DocumentException, IOException {
+        String uid = vEvent.getUid().getValue();
         List<Element> filters = getFiltersByMenuName(menuName);
         Element filter = null;
 
@@ -92,8 +92,8 @@ public class XMLGenerator {
         writer.close();
     }
 
-    public static void deleteUid(String menuName, String filterName, Event event) throws DocumentException, IOException {
-        String uid = event.getActivity().getUid().getValue();
+    public static void deleteUid(String menuName, String filterName, VEvent vEvent) throws DocumentException, IOException {
+        String uid = vEvent.getUid().getValue();
         List<Element> filters = getFiltersByMenuName(menuName);
         Element filter = null;
 

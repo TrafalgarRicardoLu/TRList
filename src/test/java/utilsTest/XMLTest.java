@@ -1,6 +1,5 @@
 package utilsTest;
 
-import model.Event;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.Uid;
 import org.dom4j.Document;
@@ -53,9 +52,7 @@ public class XMLTest {
         UidGenerator uidGenerator = new UidGenerator();
         Uid uid = uidGenerator.generateUid();
         vEvent.getProperties().add(uid);
-        Event event = new Event();
-        event.setActivity(vEvent);
-        XMLGenerator.addEventUid("label", "shopping", event);
+        XMLGenerator.addUid("label", "shopping", vEvent);
     }
 
     @Test
@@ -64,8 +61,6 @@ public class XMLTest {
         UidGenerator uidGenerator = new UidGenerator();
         Uid uid = uidGenerator.generateUid();
         vEvent.getProperties().add(uid);
-        Event event = new Event();
-        event.setActivity(vEvent);
-        XMLGenerator.deleteUid("label", "shopping", event);
+        XMLGenerator.deleteUid("label", "shopping", vEvent);
     }
 }

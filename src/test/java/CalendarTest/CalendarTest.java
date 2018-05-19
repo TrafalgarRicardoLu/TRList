@@ -1,7 +1,6 @@
 package CalendarTest;
 
 import controller.CalendarController;
-import model.Event;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.DtEnd;
@@ -36,14 +35,12 @@ public class CalendarTest {
     public void testUpdateCalendar() throws IOException, ParserException, URISyntaxException, ParseException {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_VALIDATION, true);
         CalendarController calendarController = new CalendarController();
-        Event event = new Event();
         VEvent vEvent = new VEvent();
         vEvent.getProperties().add(new Organizer("TRL"));
         vEvent.getProperties().add(new Uid("todoist16550857i2606042458udccb5ec2b80c4c15ad80bb5cf550b298@google.com"));
         vEvent.getProperties().add(new DtStart("19700101T000000"));
         vEvent.getProperties().add(new DtEnd("19700101T000001"));
-        event.setActivity(vEvent);
-        calendarController.updateCalendar(event);
+        calendarController.updateCalendar(vEvent);
     }
 
     @Test

@@ -1,7 +1,7 @@
 package controller;
 
-import model.Event;
 import model.Maps;
+import net.fortuna.ical4j.model.component.VEvent;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +31,7 @@ public class MapController {
         return getMapByMapName(menuName).keySet();
     }
 
-    public static List<Event> getEventByFilterName(String menuName, String filterName){
-        return (List<Event>) getMapByMapName(menuName).get(filterName);
+    public static List<VEvent> getEventByFilterName(String menuName, String filterName){
+        return (List<VEvent>) getMapByMapName(menuName).get(filterName);
     }
 }
