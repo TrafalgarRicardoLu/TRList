@@ -6,6 +6,8 @@ import java.util.UUID;
 
 /**
  * @author trafalgar
+ *
+ * get randomUUID use for event uid
  */
 public class UidGenerator implements net.fortuna.ical4j.util.UidGenerator {
     @Override

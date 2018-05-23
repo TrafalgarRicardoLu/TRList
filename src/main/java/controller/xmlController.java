@@ -31,6 +31,13 @@ public class xmlController {
         }
     }
 
+    /**
+     * get filters from XML by menuName
+     *
+     * @param menuName
+     * @return List<Element>
+     * @throws DocumentException
+     */
     public static List<Element> getFiltersByMenuName(String menuName) throws DocumentException {
 
         Element root = document.getRootElement();
@@ -38,6 +45,13 @@ public class xmlController {
         return menu.elements();
     }
 
+    /**
+     * get filter names from XML by menuName
+     *
+     * @param menuName
+     * @return List<String>
+     * @throws DocumentException
+     */
     public static List<String> getFilterNamesByMenuName(String menuName) throws DocumentException {
         List<Element> filters = getFiltersByMenuName(menuName);
         List<String> filterNames = new LinkedList<>();
@@ -49,6 +63,15 @@ public class xmlController {
         return filterNames;
     }
 
+    /**
+     *get uids from XML, it must point out menu name and filter name in case there is same filter name
+     * in different menu
+     *
+     * @param menuName
+     * @param filterName
+     * @return List<String>
+     * @throws DocumentException
+     */
     public static List<String> getUidsByFilterName(String menuName, String filterName) throws DocumentException {
         List<Element> filters = getFiltersByMenuName(menuName);
         List<String> uids = new LinkedList<>();
@@ -64,6 +87,11 @@ public class xmlController {
         return uids;
     }
 
+    /**
+     * create XML file if not exist
+     * @throws IOException
+     */
+
     public static void createXML() throws IOException {
         File dividedFile = new File(XMLPath);
         if (!dividedFile.exists()) {
@@ -71,6 +99,15 @@ public class xmlController {
         }
     }
 
+    /**
+     * add new uid to XML, it must point out menu name and filter name.
+     *
+     * @param menuName
+     * @param filterName
+     * @param vEvent
+     * @throws DocumentException
+     * @throws IOException
+     */
     public static void addUid(String menuName, String filterName, VEvent vEvent) throws DocumentException, IOException {
         String uid = vEvent.getUid().getValue();
         List<Element> filters = getFiltersByMenuName(menuName);
@@ -92,6 +129,14 @@ public class xmlController {
         writer.close();
     }
 
+    /**
+     * delete new uid from XML, it must point out menu name and filter name.
+     * @param menuName
+     * @param filterName
+     * @param vEvent
+     * @throws DocumentException
+     * @throws IOException
+     */
     public static void deleteUid(String menuName, String filterName, VEvent vEvent) throws DocumentException, IOException {
         String uid = vEvent.getUid().getValue();
         List<Element> filters = getFiltersByMenuName(menuName);

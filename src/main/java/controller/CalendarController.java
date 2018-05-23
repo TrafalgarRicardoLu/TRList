@@ -29,12 +29,19 @@ public class CalendarController {
         calendarFile = new File(calendarPath);
     }
 
+    /**
+     * create calendar file if not exist
+     * @throws IOException
+     */
     public void createCalendar() throws IOException {
         if (!calendarFile.exists()) {
             calendarFile.createNewFile();
         }
     }
 
+    /**
+     * delete calendar file
+     */
     public void deleteCalendar() {
         if (calendarFile.exists()) {
             calendarFile.delete();
@@ -78,6 +85,12 @@ public class CalendarController {
         }
     }
 
+    /**
+     * get all event from calendar
+     * @return List<VEvent>
+     * @throws IOException
+     * @throws ParserException
+     */
     public List<VEvent> readCalendar() throws IOException, ParserException {
         FileInputStream fin = new FileInputStream(calendarPath);
         CalendarBuilder builder = new CalendarBuilder();

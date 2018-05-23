@@ -7,6 +7,7 @@ import java.util.Properties;
 
 /**
  * @author trafalgar
+ *
  */
 public class PropsUtil {
 

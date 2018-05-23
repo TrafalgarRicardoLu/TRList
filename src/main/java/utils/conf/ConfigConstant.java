@@ -3,6 +3,8 @@ package utils.conf;
 
 /**
  * @author trafalgar
+ *
+ * convert config names of parameters
  */
 public interface ConfigConstant {
 

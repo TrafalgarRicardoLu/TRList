@@ -4,6 +4,8 @@ import java.util.Properties;
 
 /**
  * @author trafalgar
+ *
+ * offer function to get info of config
  */
 public final class ConfigHelper {
 
