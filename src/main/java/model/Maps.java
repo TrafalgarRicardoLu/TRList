@@ -29,6 +29,17 @@ public class Maps {
 
     private static HashMap<String, List<VEvent>> projectMap = new HashMap<>();
 
+    /**
+     * get Uids of event for each filter names from xmlController
+     * then get event by Uid from calendarController
+     * put filter name and related event into map
+     *
+     * Singleton Pattern
+     *
+     * @throws DocumentException
+     * @throws IOException
+     * @throws ParserException
+     */
 
     private Maps() throws DocumentException, IOException, ParserException {
         List<String> labelFilter = xmlController.getFilterNamesByMenuName("label");
@@ -81,6 +92,7 @@ public class Maps {
             synchronized (Maps.class) {
                 if (maps == null) {
                     maps = new Maps();
+                    return maps;
                 }
             }
         }
@@ -88,17 +100,17 @@ public class Maps {
     }
 
 
-    public static HashMap<String, List<VEvent>> getLabelMap() {
+    public  HashMap<String, List<VEvent>> getLabelMap() {
         return labelMap;
     }
 
 
-    public static HashMap<String, List<VEvent>> getPriorityMap() {
+    public  HashMap<String, List<VEvent>> getPriorityMap() {
         return priorityMap;
     }
 
 
-    public static HashMap<String, List<VEvent>> getProjectMap() {
+    public  HashMap<String, List<VEvent>> getProjectMap() {
         return projectMap;
     }
 

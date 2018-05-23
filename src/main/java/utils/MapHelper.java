@@ -1,8 +1,11 @@
 package utils;
 
 import model.Maps;
+import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.component.VEvent;
+import org.dom4j.DocumentException;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -16,13 +19,27 @@ public class MapHelper {
     private static final String priority = "priority";
     private static final String project = "project";
 
+    private static Maps maps;
+
+    static {
+        try {
+            maps = Maps.getMaps();
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParserException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static HashMap getMapByMapName(String mapName){
         if(mapName.equals(label)){
-            return Maps.getLabelMap();
+            return maps.getLabelMap();
         }else if(mapName.equals(priority)){
-            return Maps.getPriorityMap();
+            return maps.getPriorityMap();
         }else if(mapName.equals(project)){
-            return Maps.getProjectMap();
+            return maps.getProjectMap();
         }
         return null;
     }
