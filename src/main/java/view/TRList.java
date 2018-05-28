@@ -46,7 +46,7 @@ public class TRList extends Application {
                     public void changed(
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
-                        eventList.setItems((ObservableList) MapHelper.getEventByFilterName("label", newValue));
+                        eventList.setItems((ObservableList) MapHelper.getEventListByFilterName("label", newValue));
                     }
                 });
 
@@ -56,7 +56,7 @@ public class TRList extends Application {
                     public void changed(
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
-                        eventList.setItems((ObservableList) MapHelper.getEventByFilterName("project", newValue));
+                        eventList.setItems((ObservableList) MapHelper.getEventListByFilterName("project", newValue));
                     }
                 });
 
@@ -66,7 +66,7 @@ public class TRList extends Application {
                     public void changed(
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
-                        eventList.setItems((ObservableList) MapHelper.getEventByFilterName("priority", newValue));
+                        eventList.setItems((ObservableList) MapHelper.getEventListByFilterName("priority", newValue));
                     }
                 });
 

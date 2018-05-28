@@ -40,7 +40,6 @@ public class Maps {
      * @throws IOException
      * @throws ParserException
      */
-
     private Maps() throws DocumentException, IOException, ParserException {
         List<String> labelFilter = xmlController.getFilterNamesByMenuName("label");
         List<String> projectFilter = xmlController.getFilterNamesByMenuName("project");

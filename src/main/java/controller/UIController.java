@@ -12,33 +12,20 @@ import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.component.VTimeZone;
 import net.fortuna.ical4j.model.property.Uid;
+import utils.MapHelper;
 import utils.UidGenerator;
+import view.Event;
 
 import java.util.GregorianCalendar;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author trafalgar
  */
 public class UIController {
 
-    Maps maps;
-
-    @FXML
-    private ListView labelList;
-
-    @FXML
-    public void handlerBtnClick(ActionEvent event) {
-        Button btnSource = (Button) event.getSource();
-        btnSource.setText("I am clicked!");
-    }
-
-    @FXML
-    public void handleFilterClick(){
-        System.out.println("clicked on " + labelList.getSelectionModel().getSelectedItem());
-    }
-
-
-    @FXML
     public void handleSaveClike(){
 
         TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
@@ -79,5 +66,20 @@ public class UIController {
         UidGenerator ug = new UidGenerator();
         Uid uid = ug.generateUid();
         meeting.getProperties().add(uid);
+    }
+
+    public List<Event> handleClinkFilter(String menuName,String filterName){
+        List<VEvent> eventList = MapHelper.getEventListByFilterName(menuName,filterName);
+        List<Event> eventViewList = new LinkedList<>();
+
+        Iterator iterator = eventList.iterator();
+        while(iterator.hasNext()){
+            VEvent current = (VEvent) iterator.next();
+            Event event = new Event();
+            event.setEvent(current);
+            eventViewList.add(event);
+        }
+
+        return eventViewList;
     }
 }

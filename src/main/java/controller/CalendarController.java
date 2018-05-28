@@ -31,6 +31,7 @@ public class CalendarController {
 
     /**
      * create calendar file if not exist
+     *
      * @throws IOException
      */
     public void createCalendar() throws IOException {
@@ -41,6 +42,7 @@ public class CalendarController {
 
     /**
      * delete calendar file
+     *
      */
     public void deleteCalendar() {
         if (calendarFile.exists()) {
@@ -48,8 +50,14 @@ public class CalendarController {
         }
     }
 
+    /**
+     *update event. add it to calendar if not exist.
+     *
+     * @param vEvent
+     * @throws IOException
+     * @throws ParserException
+     */
     public void updateCalendar(VEvent vEvent) throws IOException, ParserException {
-
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_VALIDATION, true);
 
         FileInputStream fin = new FileInputStream(calendarPath);
@@ -87,6 +95,7 @@ public class CalendarController {
 
     /**
      * get all event from calendar
+     *
      * @return List<VEvent>
      * @throws IOException
      * @throws ParserException

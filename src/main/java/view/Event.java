@@ -8,8 +8,14 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
+import net.fortuna.ical4j.model.component.VEvent;
 
+/**
+ * @author trafalgar
+ */
 public class Event extends ListCell {
+
+    public VEvent event;
 
     @Override
     protected void updateItem(Object item, boolean empty) {
@@ -21,8 +27,8 @@ public class Event extends ListCell {
             hbox.setSpacing(10);
 
             Button saveButton = new Button("Save");
-            Label eventName = new Label("Name");
-            Label date = new Label("Date");
+            Label eventName = new Label(event.getProperties().getProperty("name"));
+            Label date = new Label(event.getProperties().getProperty("date"));
 
             StackPane stack = new StackPane();
             stack.getChildren().addAll(saveButton);
@@ -33,5 +39,9 @@ public class Event extends ListCell {
 
             setGraphic(hbox);
         }
+    }
+
+    public void setEvent(VEvent event) {
+        this.event = event;
     }
 }
