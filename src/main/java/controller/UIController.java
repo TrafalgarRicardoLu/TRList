@@ -66,6 +66,9 @@ public class UIController {
         UidGenerator ug = new UidGenerator();
         Uid uid = ug.generateUid();
         meeting.getProperties().add(uid);
+
+        System.out.println(meeting.getSummary());
+
     }
 
     public List<Event> handleClinkFilter(String menuName,String filterName){
@@ -76,7 +79,6 @@ public class UIController {
         while(iterator.hasNext()){
             VEvent current = (VEvent) iterator.next();
             Event event = new Event();
-            event.setEvent(current);
             eventViewList.add(event);
         }
 

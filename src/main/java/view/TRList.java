@@ -1,5 +1,6 @@
 package view;
 
+import controller.UIController;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -39,6 +40,7 @@ public class TRList extends Application {
         ObservableList<Object> projectItems = FXCollections.observableArrayList(projectFilters);
         ObservableList<Object> priorityItems = FXCollections.observableArrayList(priorityFilters);
 
+        UIController uiController = new UIController();
 
         labelList.getSelectionModel().selectedItemProperty()
                 .addListener(new ChangeListener<String>() {
@@ -46,7 +48,7 @@ public class TRList extends Application {
                     public void changed(
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
-                        eventList.setItems((ObservableList) MapHelper.getEventListByFilterName("label", newValue));
+                        eventList.setItems((ObservableList) uiController.handleClinkFilter("label",newValue));
                     }
                 });
 
@@ -56,7 +58,7 @@ public class TRList extends Application {
                     public void changed(
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
-                        eventList.setItems((ObservableList) MapHelper.getEventListByFilterName("project", newValue));
+                        eventList.setItems((ObservableList) uiController.handleClinkFilter("project", newValue));
                     }
                 });
 
@@ -66,7 +68,7 @@ public class TRList extends Application {
                     public void changed(
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
-                        eventList.setItems((ObservableList) MapHelper.getEventListByFilterName("priority", newValue));
+                        eventList.setItems((ObservableList) uiController.handleClinkFilter("priority", newValue));
                     }
                 });
 

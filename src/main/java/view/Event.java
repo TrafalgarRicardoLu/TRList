@@ -13,12 +13,12 @@ import net.fortuna.ical4j.model.component.VEvent;
 /**
  * @author trafalgar
  */
-public class Event extends ListCell {
+public class Event extends ListCell<VEvent> {
 
-    public VEvent event;
+
 
     @Override
-    protected void updateItem(Object item, boolean empty) {
+    protected void updateItem(VEvent item, boolean empty) {
         super.updateItem(item, empty);
         if (item != null) {
 
@@ -26,9 +26,12 @@ public class Event extends ListCell {
             hbox.setPadding(new Insets(15, 12, 15, 10));
             hbox.setSpacing(10);
 
-            Button saveButton = new Button("Save");
-            Label eventName = new Label(event.getProperties().getProperty("name"));
-            Label date = new Label(event.getProperties().getProperty("date"));
+            String summary = item.getSummary().toString().substring(8);
+            String endDate = item.getEndDate().toString().substring(8);
+
+            Button saveButton = new Button("Finished");
+            Label eventName = new Label(summary);
+            Label date = new Label(endDate);
 
             StackPane stack = new StackPane();
             stack.getChildren().addAll(saveButton);
@@ -41,7 +44,5 @@ public class Event extends ListCell {
         }
     }
 
-    public void setEvent(VEvent event) {
-        this.event = event;
-    }
+
 }
