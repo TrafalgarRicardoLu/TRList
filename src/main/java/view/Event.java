@@ -9,12 +9,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import net.fortuna.ical4j.model.component.VEvent;
+import utils.DateHelper;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * @author trafalgar
  */
 public class Event extends ListCell<VEvent> {
-
 
 
     @Override
@@ -27,7 +30,13 @@ public class Event extends ListCell<VEvent> {
             hbox.setSpacing(10);
 
             String summary = item.getSummary().toString().substring(8);
-            String endDate = item.getEndDate().toString().substring(8);
+            String endDate = item.getEndDate().toString().substring(6);
+
+            try {
+                endDate=DateHelper.getDate(endDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             Button saveButton = new Button("Finished");
             Label eventName = new Label(summary);
@@ -37,7 +46,7 @@ public class Event extends ListCell<VEvent> {
             stack.getChildren().addAll(saveButton);
             stack.setAlignment(Pos.CENTER_RIGHT);
 
-            hbox.getChildren().addAll(eventName,date,stack);
+            hbox.getChildren().addAll(eventName, date, stack);
             HBox.setHgrow(stack, Priority.ALWAYS);
 
             setGraphic(hbox);

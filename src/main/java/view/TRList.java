@@ -8,11 +8,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.util.Callback;
+import net.fortuna.ical4j.model.component.VEvent;
 import utils.MapHelper;
+
+import java.util.List;
 
 /**
  * @author trafalgar
@@ -26,7 +31,7 @@ public class TRList extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ListView eventList = new ListView();
+        ListView eventListView = new ListView();
 
         ListView labelList = new ListView();
         ListView projectList = new ListView();
@@ -48,7 +53,15 @@ public class TRList extends Application {
                     public void changed(
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
-                        eventList.setItems((ObservableList) uiController.handleClinkFilter("label",newValue));
+                        List vEventList = MapHelper.getEventListByFilterName("label", newValue);
+                        ObservableList eventList = FXCollections.observableArrayList(vEventList);
+                        eventListView.setItems(eventList);
+                        eventListView.setCellFactory(new Callback<ListView<VEvent>, ListCell<VEvent>>() {
+                            @Override
+                            public ListCell<VEvent> call(ListView<VEvent> param) {
+                                return new Event();
+                            }
+                        });
                     }
                 });
 
@@ -58,7 +71,15 @@ public class TRList extends Application {
                     public void changed(
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
-                        eventList.setItems((ObservableList) uiController.handleClinkFilter("project", newValue));
+                        List vEventList = MapHelper.getEventListByFilterName("project", newValue);
+                        ObservableList eventList = FXCollections.observableArrayList(vEventList);
+                        eventListView.setItems(eventList);
+                        eventListView.setCellFactory(new Callback<ListView<VEvent>, ListCell<VEvent>>() {
+                            @Override
+                            public ListCell<VEvent> call(ListView<VEvent> param) {
+                                return new Event();
+                            }
+                        });
                     }
                 });
 
@@ -68,7 +89,15 @@ public class TRList extends Application {
                     public void changed(
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
-                        eventList.setItems((ObservableList) uiController.handleClinkFilter("priority", newValue));
+                        List vEventList = MapHelper.getEventListByFilterName("priority", newValue);
+                        ObservableList eventList = FXCollections.observableArrayList(vEventList);
+                        eventListView.setItems(eventList);
+                        eventListView.setCellFactory(new Callback<ListView<VEvent>, ListCell<VEvent>>() {
+                            @Override
+                            public ListCell<VEvent> call(ListView<VEvent> param) {
+                                return new Event();
+                            }
+                        });
                     }
                 });
 
@@ -84,7 +113,7 @@ public class TRList extends Application {
         leftView.getPanes().addAll(label, project, priority);
 
         HBox root = new HBox();
-        root.getChildren().addAll(leftView, eventList);
+        root.getChildren().addAll(leftView, eventListView);
 
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setTitle("Hello World!");

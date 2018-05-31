@@ -9,10 +9,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import net.fortuna.ical4j.data.CalendarParser;
+import net.fortuna.ical4j.data.CalendarParserImpl;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.component.VEvent;
 import view.Event;
 
+import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,10 +64,6 @@ public class eventTest extends Application {
         vEvents.add(vEvent);
         ObservableList<VEvent> eventObservableList;
         eventObservableList=FXCollections.observableList(vEvents);
-
-
-
-        System.out.println(vEvent.getSummary());
 
         ListView<VEvent> eventList = new ListView<>();
         eventList.setMinWidth(400);
