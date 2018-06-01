@@ -1,5 +1,6 @@
 package view;
 
+import controller.CalendarController;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,11 +15,13 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.property.Summary;
 import utils.DateHelper;
 
+import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 /**
  * @author trafalgar
@@ -68,6 +71,17 @@ public class Event extends ListCell<VEvent> {
                         nameBox.getChildren().remove(nameInput);
                         eventName.setText(nameInput.getText());
                         nameBox.getChildren().addAll(eventName);
+
+                        item.getProperties().remove(item.getSummary());
+                        item.getProperties().add(new Summary(nameInput.getText()));
+                        CalendarController calendarController = new CalendarController();
+                        try {
+                            calendarController.updateCalendar(item);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (ParserException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             });
