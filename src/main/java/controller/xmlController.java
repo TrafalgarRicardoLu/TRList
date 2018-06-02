@@ -122,6 +122,13 @@ public class xmlController {
             }
         }
 
+        List<Element> uids = filter.elements();
+        for (Element i : uids) {
+            if (i.getText().equals(uid)) {
+                return;
+            }
+        }
+
         filter.addElement("uid").setText(uid);
 
         OutputFormat format = OutputFormat.createPrettyPrint();
@@ -173,8 +180,16 @@ public class xmlController {
 
     public static void addFinishedUid(Uid uid) throws IOException {
         Element root = document.getRootElement();
-        Element finishedUids = root.element("finished");
-        finishedUids.addElement("uid").setText(uid.getValue());
+        Element finished = root.element("finished");
+        List<Element> finishedUids = finished.elements();
+
+        for (Element i : finishedUids) {
+            if (i.getText().equals(uid.getValue())) {
+                return;
+            }
+        }
+
+        finished.addElement("uid").setText(uid.getValue());
 
         OutputFormat format = OutputFormat.createPrettyPrint();
         format.setEncoding("UTF-8");

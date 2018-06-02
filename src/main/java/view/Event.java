@@ -1,13 +1,13 @@
 package view;
 
 import controller.CalendarController;
+import controller.xmlController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -15,19 +15,28 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.Summary;
+import org.dom4j.DocumentException;
 import utils.DateHelper;
+import utils.MapHelper;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.List;
 
 /**
  * @author trafalgar
  */
 public class Event extends ListCell<VEvent> {
 
+    Button saveButton = new Button("Finished");
+    Label nameLabel = new Label("Name: ");
+    Label dateLabel = new Label("Date: ");
+    Label eventName;
+    Label eventDate;
 
     @Override
     protected void updateItem(VEvent item, boolean empty) {
@@ -47,11 +56,32 @@ public class Event extends ListCell<VEvent> {
                 e.printStackTrace();
             }
 
-            Button saveButton = new Button("Finished");
-            Label nameLabel = new Label("Name: ");
-            Label dateLabel = new Label("Date: ");
-            Label eventName = new Label(summary);
-            Label eventDate = new Label(endDate);
+            saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    try {
+                        xmlController.markUidAsFinished(item.getUid());
+                        MapHelper.deleteEventByUid(item.getUid());
+                        List vEventList = MapHelper.getEventListByFilterName(TRList.currentMenu, TRList.currrentFilter);
+                        ObservableList eventList = FXCollections.observableArrayList(vEventList);
+                        TRList.eventListView.setItems(eventList);
+                        TRList.eventListView.setCellFactory(new Callback<ListView<VEvent>, ListCell<VEvent>>() {
+                            @Override
+                            public ListCell<VEvent> call(ListView<VEvent> param) {
+                                return new Event();
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (DocumentException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+
+
+            eventName = new Label(summary);
+            eventDate = new Label(endDate);
 
 
             HBox nameBox = new HBox();
@@ -89,8 +119,6 @@ public class Event extends ListCell<VEvent> {
 
             HBox dateBox = new HBox();
             dateBox.getChildren().addAll(dateLabel, eventDate);
-
-
 
             VBox infoBox = new VBox();
             infoBox.getChildren().addAll(nameBox, dateBox);

@@ -1,16 +1,13 @@
 package utils;
 
-import javafx.scene.web.WebHistory;
 import model.Maps;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.property.Uid;
 import org.dom4j.DocumentException;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author trafalgar
@@ -41,12 +38,12 @@ public class MapHelper {
      * @param mapName
      * @return HashMap
      */
-    public static HashMap getMapByMapName(String mapName){
-        if(mapName.equals(label)){
+    public static HashMap getMapByMapName(String mapName) {
+        if (mapName.equals(label)) {
             return maps.getLabelMap();
-        }else if(mapName.equals(priority)){
+        } else if (mapName.equals(priority)) {
             return maps.getPriorityMap();
-        }else if(mapName.equals(project)){
+        } else if (mapName.equals(project)) {
             return maps.getProjectMap();
         }
         return null;
@@ -58,7 +55,7 @@ public class MapHelper {
      * @param menuName
      * @return Set<String>
      */
-    public static Set<String> getFilterNamesByMenuName(String menuName){
+    public static Set<String> getFilterNamesByMenuName(String menuName) {
         return getMapByMapName(menuName).keySet();
     }
 
@@ -69,7 +66,7 @@ public class MapHelper {
      * @param filterName
      * @return List<VEvent>
      */
-    public static List<VEvent> getEventListByFilterName(String menuName, String filterName){
+    public static List<VEvent> getEventListByFilterName(String menuName, String filterName) {
         return (List<VEvent>) getMapByMapName(menuName).get(filterName);
     }
 
@@ -82,18 +79,40 @@ public class MapHelper {
      * @param eventName
      * @return VEvent
      */
-    public static VEvent getEventByName(String menuName,String filterName,String eventName){
-        List<VEvent> eventList = getEventListByFilterName(menuName,filterName);
+    public static VEvent getEventByName(String menuName, String filterName, String eventName) {
+        List<VEvent> eventList = getEventListByFilterName(menuName, filterName);
 
         Iterator iterator = eventList.iterator();
-        while (iterator.hasNext()){
+        while (iterator.hasNext()) {
             VEvent event = (VEvent) iterator.next();
             String name = event.getName();
-            if(name.equals(eventName)){
+            if (name.equals(eventName)) {
                 return event;
             }
         }
-
         return null;
+    }
+
+    public static void deleteEventByUid(Uid uid) {
+        Map labelMap = getMapByMapName("label");
+        Map projectMap = getMapByMapName("project");
+        Map priotityMap = getMapByMapName("priority");
+
+
+        Set<String> labelKeys = labelMap.keySet();
+        String tempKey = null;
+        List<VEvent> tempList = null;
+        for (String key : labelKeys) {
+            List<VEvent> eventList = (List<VEvent>) labelMap.get(key);
+            for (VEvent event : eventList) {
+                if (event.getUid().getValue().equals(uid.getValue())) {
+                    eventList.remove(event);
+                    tempKey = key;
+                    tempList = eventList;
+                }
+            }
+        }
+        labelMap.remove(tempKey);
+        labelMap.put(tempKey,tempList);
     }
 }

@@ -24,6 +24,12 @@ import java.util.List;
  */
 public class TRList extends Application {
 
+    static ListView eventListView;
+    ListView labelList;
+    ListView projectList;
+    ListView priorityList;
+    static String currentMenu = null;
+    static String currrentFilter = null;
 
     public static void main(String[] args) {
         launch(args);
@@ -31,11 +37,11 @@ public class TRList extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ListView eventListView = new ListView();
+        eventListView = new ListView();
 
-        ListView labelList = new ListView();
-        ListView projectList = new ListView();
-        ListView priorityList = new ListView();
+        labelList = new ListView();
+        projectList = new ListView();
+        priorityList = new ListView();
 
         Object[] labelFilters = MapHelper.getFilterNamesByMenuName("label").toArray();
         Object[] projectFilters = MapHelper.getFilterNamesByMenuName("project").toArray();
@@ -45,14 +51,14 @@ public class TRList extends Application {
         ObservableList<Object> projectItems = FXCollections.observableArrayList(projectFilters);
         ObservableList<Object> priorityItems = FXCollections.observableArrayList(priorityFilters);
 
-        UIController uiController = new UIController();
-
         labelList.getSelectionModel().selectedItemProperty()
                 .addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
+                        currentMenu = "label";
+                        currrentFilter = newValue;
                         List vEventList = MapHelper.getEventListByFilterName("label", newValue);
                         ObservableList eventList = FXCollections.observableArrayList(vEventList);
                         eventListView.setItems(eventList);
@@ -65,12 +71,15 @@ public class TRList extends Application {
                     }
                 });
 
+
         projectList.getSelectionModel().selectedItemProperty()
                 .addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
+                        currentMenu = "project";
+                        currrentFilter = newValue;
                         List vEventList = MapHelper.getEventListByFilterName("project", newValue);
                         ObservableList eventList = FXCollections.observableArrayList(vEventList);
                         eventListView.setItems(eventList);
@@ -89,6 +98,8 @@ public class TRList extends Application {
                     public void changed(
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
+                        currentMenu = "priority";
+                        currrentFilter = newValue;
                         List vEventList = MapHelper.getEventListByFilterName("priority", newValue);
                         ObservableList eventList = FXCollections.observableArrayList(vEventList);
                         eventListView.setItems(eventList);
