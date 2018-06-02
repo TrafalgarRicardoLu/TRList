@@ -5,45 +5,62 @@
     <element name="data">
         <complexType>
             <sequence maxOccurs="unbounded">
-                <element name="label" minOccurs="1" maxOccurs="1">
+                <element name="todo" minOccurs="1" maxOccurs="1">
                     <complexType>
                         <sequence>
-                            <element name="filter" minOccurs="0" maxOccurs="unbounded">
+                            <element name="label" minOccurs="1" maxOccurs="1">
                                 <complexType>
                                     <sequence>
-                                        <element name="uid" type="string" minOccurs="0" maxOccurs="unbounded"></element>
+                                        <element name="filter" minOccurs="0" maxOccurs="unbounded">
+                                            <complexType>
+                                                <sequence>
+                                                    <element name="uid" type="string" minOccurs="0"
+                                                             maxOccurs="unbounded"></element>
+                                                </sequence>
+                                                <attribute name="name" type="string" use="required"/>
+                                            </complexType>
+                                        </element>
                                     </sequence>
-                                    <attribute name="name" type="string" use="required"/>
+                                </complexType>
+                            </element>
+                            <element name="project" minOccurs="1" maxOccurs="1">
+                                <complexType>
+                                    <sequence>
+                                        <element name="filter" minOccurs="0" maxOccurs="unbounded">
+                                            <complexType>
+                                                <sequence>
+                                                    <element name="uid" type="string" minOccurs="0"
+                                                             maxOccurs="unbounded"></element>
+                                                </sequence>
+                                                <attribute name="name" type="string" use="required"/>
+                                            </complexType>
+                                        </element>
+                                    </sequence>
+                                </complexType>
+                            </element>
+                            <element name="priority" minOccurs="1" maxOccurs="1">
+                                <complexType>
+                                    <sequence>
+                                        <element name="filter" minOccurs="0" maxOccurs="unbounded">
+                                            <complexType>
+                                                <sequence>
+                                                    <element name="uid" type="string" minOccurs="0"
+                                                             maxOccurs="unbounded"></element>
+                                                </sequence>
+                                                <attribute name="name" type="string" use="required"/>
+                                            </complexType>
+                                        </element>
+                                    </sequence>
                                 </complexType>
                             </element>
                         </sequence>
                     </complexType>
                 </element>
-                <element name="project" minOccurs="1" maxOccurs="1">
+                <element name="finished" minOccurs="1" maxOccurs="1">
                     <complexType>
                         <sequence>
-                            <element name="filter" minOccurs="0" maxOccurs="unbounded">
-                                <complexType>
-                                    <sequence>
-                                        <element name="uid" type="string" minOccurs="0" maxOccurs="unbounded"></element>
-                                    </sequence>
-                                    <attribute name="name" type="string" use="required"/>
-                                </complexType>
-                            </element>
-                        </sequence>
-                    </complexType>
-                </element>
-                <element name="priority" minOccurs="1" maxOccurs="1">
-                    <complexType>
-                        <sequence>
-                            <element name="filter" minOccurs="0" maxOccurs="unbounded">
-                                <complexType>
-                                    <sequence>
-                                        <element name="uid" type="string" minOccurs="0" maxOccurs="unbounded"></element>
-                                    </sequence>
-                                    <attribute name="name" type="string" use="required"/>
-                                </complexType>
-                            </element>
+                            <element name="uid" type="string" minOccurs="0"
+                                     maxOccurs="unbounded"></element>
                         </sequence>
                     </complexType>
                 </element>

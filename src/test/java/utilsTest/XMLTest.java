@@ -10,6 +10,7 @@ import org.junit.Test;
 import utils.UidGenerator;
 import controller.xmlController;
 
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -47,20 +48,42 @@ public class XMLTest {
     }
 
     @Test
-    public void testAddUid() throws DocumentException, IOException {
+    public void testAddTodoUid() throws DocumentException, IOException {
         VEvent vEvent = new VEvent();
         UidGenerator uidGenerator = new UidGenerator();
         Uid uid = uidGenerator.generateUid();
         vEvent.getProperties().add(uid);
-        xmlController.addUid("label", "shopping", vEvent);
+        xmlController.addTodoUid("label", "shopping", vEvent);
     }
 
     @Test
-    public void testDeleteUid() throws IOException, DocumentException {
+    public void testDeleteTodoUid() throws IOException, DocumentException {
         VEvent vEvent = new VEvent();
         UidGenerator uidGenerator = new UidGenerator();
         Uid uid = uidGenerator.generateUid();
         vEvent.getProperties().add(uid);
-        xmlController.deleteUid("label", "shopping", vEvent);
+        xmlController.deleteTodoUid("label", uid);
     }
+
+    @Test
+    public void testAddFinishedUid() throws IOException {
+        Uid uid = new Uid("122");
+        xmlController.addFinishedUid(uid);
+    }
+
+    @Test
+    public void testMoveUidToFinished() throws IOException, DocumentException {
+        Uid uid = new Uid("2");
+        xmlController.markUidAsFinished(uid);
+    }
+
+    @Test
+    public void testGetFinishedUId() throws DocumentException {
+        List<Element> uids = xmlController.getFinishedUidList();
+        for(Element i:uids){
+            System.out.println(i.getText());
+        }
+
+    }
+
 }
