@@ -29,7 +29,7 @@ public class TRList extends Application {
     ListView projectList;
     ListView priorityList;
     static String currentMenu = null;
-    static String currrentFilter = null;
+    static String currentFilter = null;
 
     public static void main(String[] args) {
         launch(args);
@@ -58,7 +58,7 @@ public class TRList extends Application {
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
                         currentMenu = "label";
-                        currrentFilter = newValue;
+                        currentFilter = newValue;
                         List vEventList = MapHelper.getEventListByFilterName("label", newValue);
                         ObservableList eventList = FXCollections.observableArrayList(vEventList);
                         eventListView.setItems(eventList);
@@ -79,7 +79,7 @@ public class TRList extends Application {
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
                         currentMenu = "project";
-                        currrentFilter = newValue;
+                        currentFilter = newValue;
                         List vEventList = MapHelper.getEventListByFilterName("project", newValue);
                         ObservableList eventList = FXCollections.observableArrayList(vEventList);
                         eventListView.setItems(eventList);
@@ -99,7 +99,7 @@ public class TRList extends Application {
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
                         currentMenu = "priority";
-                        currrentFilter = newValue;
+                        currentFilter = newValue;
                         List vEventList = MapHelper.getEventListByFilterName("priority", newValue);
                         ObservableList eventList = FXCollections.observableArrayList(vEventList);
                         eventListView.setItems(eventList);
@@ -122,12 +122,16 @@ public class TRList extends Application {
 
         Accordion leftView = new Accordion();
         leftView.getPanes().addAll(label, project, priority);
+        leftView.setMinSize(200,400);
 
         HBox root = new HBox();
+        eventListView.setMinSize(400,400);
         root.getChildren().addAll(leftView, eventListView);
 
         Scene scene = new Scene(root, 600, 400);
-        primaryStage.setTitle("Hello World!");
+        scene.getStylesheets().add(TRList.class.getResource("/bootstrap3.css").toExternalForm());
+
+        primaryStage.setTitle("TRList");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

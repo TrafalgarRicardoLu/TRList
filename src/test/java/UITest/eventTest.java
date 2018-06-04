@@ -31,8 +31,6 @@ public class eventTest extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-
-
         // 起始时间是：2008 年 4 月 1 日 上午 9 点
         java.util.Calendar startDate = new GregorianCalendar();
         startDate.set(java.util.Calendar.MONTH, java.util.Calendar.APRIL);

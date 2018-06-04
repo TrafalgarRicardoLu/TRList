@@ -62,7 +62,7 @@ public class Event extends ListCell<VEvent> {
                     try {
                         xmlController.markUidAsFinished(item.getUid());
                         MapHelper.deleteEventByUid(item.getUid());
-                        List vEventList = MapHelper.getEventListByFilterName(TRList.currentMenu, TRList.currrentFilter);
+                        List vEventList = MapHelper.getEventListByFilterName(TRList.currentMenu, TRList.currentFilter);
                         ObservableList eventList = FXCollections.observableArrayList(vEventList);
                         TRList.eventListView.setItems(eventList);
                         TRList.eventListView.setCellFactory(new Callback<ListView<VEvent>, ListCell<VEvent>>() {
@@ -87,7 +87,7 @@ public class Event extends ListCell<VEvent> {
             HBox nameBox = new HBox();
             TextField nameInput = new TextField(eventName.getText());
             nameBox.getChildren().addAll(nameLabel, eventName);
-            nameBox.setOnMousePressed(new EventHandler<MouseEvent>() {
+            eventName.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     nameBox.getChildren().remove(eventName);
