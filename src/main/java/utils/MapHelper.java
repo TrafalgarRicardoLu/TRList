@@ -4,6 +4,7 @@ import model.Maps;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.Uid;
+import org.apache.commons.collections4.set.ListOrderedSet;
 import org.dom4j.DocumentException;
 
 import java.io.IOException;
@@ -56,6 +57,9 @@ public class MapHelper {
      * @return Set<String>
      */
     public static Set<String> getFilterNamesByMenuName(String menuName) {
+        if(getMapByMapName(menuName)==null){
+            return new ListOrderedSet<String>();
+        }
         return getMapByMapName(menuName).keySet();
     }
 

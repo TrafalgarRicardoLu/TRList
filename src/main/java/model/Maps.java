@@ -2,6 +2,7 @@ package model;
 
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.Component;
 import net.fortuna.ical4j.model.IndexedComponentList;
 import net.fortuna.ical4j.model.Property;
@@ -10,6 +11,7 @@ import org.dom4j.DocumentException;
 import utils.conf.ConfigHelper;
 import controller.xmlController;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
@@ -45,9 +47,17 @@ public class Maps {
         List<String> projectFilter = xmlController.getFilterNamesByMenuName("project");
         List<String> priorityFilter = xmlController.getFilterNamesByMenuName("priority");
 
-        FileInputStream fin = new FileInputStream(ConfigHelper.getCalendarPath());
+        File calendarFile = new File(ConfigHelper.getCalendarPath());
+        if(!calendarFile.exists() || calendarFile.length()==0){
+            labelMap= null;
+            priorityMap=null;
+            projectMap=null;
+            return;
+        }
+
+        FileInputStream fin = new FileInputStream(calendarFile);
         CalendarBuilder builder = new CalendarBuilder();
-        net.fortuna.ical4j.model.Calendar calendar = builder.build(fin);
+        Calendar calendar = builder.build(fin);
 
         IndexedComponentList indexedEvents = new IndexedComponentList(
                 calendar.getComponents(Component.VEVENT), Property.UID);
