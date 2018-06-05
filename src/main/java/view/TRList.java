@@ -1,22 +1,24 @@
 package view;
 
+import controller.CalendarController;
 import controller.UIController;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import net.fortuna.ical4j.model.component.VEvent;
 import utils.MapHelper;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -28,8 +30,11 @@ public class TRList extends Application {
     ListView labelList;
     ListView projectList;
     ListView priorityList;
+    Button calendarCreator;
+    Button calendarLoader;
     static String currentMenu = null;
     static String currentFilter = null;
+
 
     public static void main(String[] args) {
         launch(args);
@@ -38,6 +43,9 @@ public class TRList extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         eventListView = new ListView();
+
+        calendarCreator = new Button("Create");
+        calendarLoader= new Button("Load");
 
         labelList = new ListView();
         projectList = new ListView();
@@ -120,9 +128,28 @@ public class TRList extends Application {
         TitledPane project = new TitledPane("Project", projectList);
         TitledPane priority = new TitledPane("Priority", priorityList);
 
-        Accordion leftView = new Accordion();
-        leftView.getPanes().addAll(label, project, priority);
-        leftView.setMinSize(200,400);
+        Accordion menuList = new Accordion();
+        menuList.getPanes().addAll(label, project, priority);
+        menuList.setMinSize(200,400);
+
+        VBox leftView = new VBox();
+        HBox calendarButtons = new HBox();
+        calendarCreator.setPrefSize(100,80);
+        calendarCreator.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                CalendarController calendarController = new CalendarController();
+                try {
+                    calendarController.createCalendar();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        calendarLoader.setPrefSize(100,80);
+        calendarButtons.getChildren().addAll(calendarCreator,calendarLoader);
+
+        leftView.getChildren().addAll(calendarButtons,menuList);
 
         HBox root = new HBox();
         eventListView.setMinSize(400,400);
