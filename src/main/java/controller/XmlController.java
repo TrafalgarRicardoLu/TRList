@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author trafalgar
  */
-public class xmlController {
+public class XmlController {
 
     private static Document document;
     private static final String XMLPath = ConfigHelper.getXMLPath();
@@ -39,7 +39,7 @@ public class xmlController {
      * @return List<Element>
      * @throws DocumentException
      */
-    public static List<Element> getTodoFiltersByMenuName(String menuName) throws DocumentException {
+    public static List<Element> getTodoFilterListByMenuName(String menuName) throws DocumentException {
 
         Element root = document.getRootElement();
         Element menu = root.element("todo").element(menuName);
@@ -54,8 +54,8 @@ public class xmlController {
      * @return List<String>
      * @throws DocumentException
      */
-    public static List<String> getFilterNamesByMenuName(String menuName) throws DocumentException {
-        List<Element> filters = getTodoFiltersByMenuName(menuName);
+    public static List<String> getFilterNameListByMenuName(String menuName) throws DocumentException {
+        List<Element> filters = getTodoFilterListByMenuName(menuName);
         List<String> filterNames = new LinkedList<>();
 
         for (Element filter : filters) {
@@ -74,8 +74,8 @@ public class xmlController {
      * @return List<String>
      * @throws DocumentException
      */
-    public static List<String> getUidsByFilterName(String menuName, String filterName) throws DocumentException {
-        List<Element> filters = getTodoFiltersByMenuName(menuName);
+    public static List<String> getUidListByFilterName(String menuName, String filterName) throws DocumentException {
+        List<Element> filters = getTodoFilterListByMenuName(menuName);
         List<String> uids = new LinkedList<>();
 
         for (Element filter : filters) {
@@ -111,9 +111,9 @@ public class xmlController {
      * @throws DocumentException
      * @throws IOException
      */
-    public static void addTodoUid(String menuName, String filterName, VEvent vEvent) throws DocumentException, IOException {
+    public static void insertTodoUid(String menuName, String filterName, VEvent vEvent) throws DocumentException, IOException {
         String uid = vEvent.getUid().getValue();
-        List<Element> filters = getTodoFiltersByMenuName(menuName);
+        List<Element> filters = getTodoFilterListByMenuName(menuName);
         Element filter = null;
 
         for (Element i : filters) {
@@ -147,7 +147,7 @@ public class xmlController {
      * @throws IOException
      */
     public static void deleteTodoUid(String menuName, Uid uid) throws DocumentException, IOException {
-        List<Element> filters = getTodoFiltersByMenuName(menuName);
+        List<Element> filters = getTodoFilterListByMenuName(menuName);
 
         for (Element filter : filters) {
             List<Element> uids = filter.elements();
@@ -178,7 +178,7 @@ public class xmlController {
         return finishedUids;
     }
 
-    public static void addFinishedUid(Uid uid) throws IOException {
+    public static void insertFinishedUid(Uid uid) throws IOException {
         Element root = document.getRootElement();
         Element finished = root.element("finished");
         List<Element> finishedUids = finished.elements();
@@ -203,6 +203,6 @@ public class xmlController {
         deleteTodoUid("project", uid);
         deleteTodoUid("priority", uid);
 
-        addFinishedUid(uid);
+        insertFinishedUid(uid);
     }
 }

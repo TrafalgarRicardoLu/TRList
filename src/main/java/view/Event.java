@@ -1,7 +1,7 @@
 package view;
 
 import controller.CalendarController;
-import controller.xmlController;
+import controller.XmlController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -60,7 +60,7 @@ public class Event extends ListCell<VEvent> {
                 @Override
                 public void handle(MouseEvent event) {
                     try {
-                        xmlController.markUidAsFinished(item.getUid());
+                        XmlController.markUidAsFinished(item.getUid());
                         MapHelper.deleteEventByUid(item.getUid());
                         List vEventList = MapHelper.getEventListByFilterName(TRList.currentMenu, TRList.currentFilter);
                         ObservableList eventList = FXCollections.observableArrayList(vEventList);

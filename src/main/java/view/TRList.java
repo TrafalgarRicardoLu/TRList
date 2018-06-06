@@ -1,7 +1,6 @@
 package view;
 
 import controller.CalendarController;
-import controller.UIController;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -51,9 +50,9 @@ public class TRList extends Application {
         projectList = new ListView();
         priorityList = new ListView();
 
-        Object[] labelFilters = MapHelper.getFilterNamesByMenuName("label").toArray();
-        Object[] projectFilters = MapHelper.getFilterNamesByMenuName("project").toArray();
-        Object[] priorityFilters = MapHelper.getFilterNamesByMenuName("priority").toArray();
+        Object[] labelFilters = MapHelper.getFilterNameListByMenuName("label").toArray();
+        Object[] projectFilters = MapHelper.getFilterNameListByMenuName("project").toArray();
+        Object[] priorityFilters = MapHelper.getFilterNameListByMenuName("priority").toArray();
 
         ObservableList<Object> labelItems = FXCollections.observableArrayList(labelFilters);
         ObservableList<Object> projectItems = FXCollections.observableArrayList(projectFilters);

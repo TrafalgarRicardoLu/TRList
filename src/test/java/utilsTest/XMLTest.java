@@ -1,5 +1,6 @@
 package utilsTest;
 
+import controller.XmlController;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.Uid;
 import org.dom4j.Document;
@@ -8,9 +9,7 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 import org.junit.Test;
 import utils.UidGenerator;
-import controller.xmlController;
 
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -37,8 +36,8 @@ public class XMLTest {
 
     @Test
     public void testGetUids() throws DocumentException {
-        xmlController xmlGenerator = new xmlController();
-        List<String> uids = xmlGenerator.getUidsByFilterName("project", "TRList");
+        XmlController xmlGenerator = new XmlController();
+        List<String> uids = xmlGenerator.getUidListByFilterName("project", "TRList");
         if (uids == null) {
             System.out.println(1);
         }
@@ -53,7 +52,7 @@ public class XMLTest {
         UidGenerator uidGenerator = new UidGenerator();
         Uid uid = uidGenerator.generateUid();
         vEvent.getProperties().add(uid);
-        xmlController.addTodoUid("label", "shopping", vEvent);
+        XmlController.insertTodoUid("label", "shopping", vEvent);
     }
 
     @Test
@@ -62,24 +61,24 @@ public class XMLTest {
         UidGenerator uidGenerator = new UidGenerator();
         Uid uid = uidGenerator.generateUid();
         vEvent.getProperties().add(uid);
-        xmlController.deleteTodoUid("label", uid);
+       XmlController.deleteTodoUid("label", uid);
     }
 
     @Test
     public void testAddFinishedUid() throws IOException {
         Uid uid = new Uid("122");
-        xmlController.addFinishedUid(uid);
+       XmlController.insertFinishedUid(uid);
     }
 
     @Test
     public void testMoveUidToFinished() throws IOException, DocumentException {
         Uid uid = new Uid("2");
-        xmlController.markUidAsFinished(uid);
+       XmlController.markUidAsFinished(uid);
     }
 
     @Test
     public void testGetFinishedUId() throws DocumentException {
-        List<Element> uids = xmlController.getFinishedUidList();
+        List<Element> uids = XmlController.getFinishedUidList();
         for(Element i:uids){
             System.out.println(i.getText());
         }

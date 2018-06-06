@@ -53,17 +53,27 @@ public class CalendarController {
     public void updateCalendar(VEvent vEvent) throws IOException, ParserException {
         CompatibilityHints.setHintEnabled(CompatibilityHints.KEY_RELAXED_VALIDATION, true);
         if (calendarFile.exists() && calendarFile.length() == 0) {
-            Calendar calendar = new Calendar();
-
-            calendar.getProperties().add(new ProdId("-//Events Calendar//iCal4j 1.0//EN"));
-            calendar.getProperties().add(CalScale.GREGORIAN);
-            calendar.getProperties().add(Version.VERSION_2_0);
-
-            calendar.getComponents().add(vEvent);
-            FileOutputStream fileOutputStream = new FileOutputStream(calendarFile);
-            CalendarOutputter outputter = new CalendarOutputter();
-            outputter.output(calendar, fileOutputStream);
+                updateCalendarIfEmpty(vEvent);
         } else {
+            updateCalendarNotEmpty(vEvent);
+        }
+    }
+
+    public void updateCalendarIfEmpty(VEvent vEvent) throws IOException {
+        Calendar calendar = new Calendar();
+
+        calendar.getProperties().add(new ProdId("-//Events Calendar//iCal4j 1.0//EN"));
+        calendar.getProperties().add(CalScale.GREGORIAN);
+        calendar.getProperties().add(Version.VERSION_2_0);
+
+        calendar.getComponents().add(vEvent);
+        FileOutputStream fileOutputStream = new FileOutputStream(calendarFile);
+        CalendarOutputter outputter = new CalendarOutputter();
+        outputter.output(calendar, fileOutputStream);
+    }
+
+
+    public void updateCalendarNotEmpty(VEvent vEvent) throws IOException, ParserException {
             FileInputStream fin = new FileInputStream(calendarPath);
             CalendarBuilder builder = new CalendarBuilder();
             Calendar calendar = builder.build(fin);
@@ -81,11 +91,7 @@ public class CalendarController {
             FileOutputStream fileOutputStream = new FileOutputStream(calendarFile);
             CalendarOutputter outputter = new CalendarOutputter();
             outputter.output(calendar, fileOutputStream);
-        }
-
     }
-
-
     /**
      * get all event from calendar
      *

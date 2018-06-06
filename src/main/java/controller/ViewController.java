@@ -1,10 +1,5 @@
 package controller;
 
-import javafx.scene.control.ListView;
-import model.Maps;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.TimeZone;
 import net.fortuna.ical4j.model.TimeZoneRegistry;
@@ -24,7 +19,7 @@ import java.util.List;
 /**
  * @author trafalgar
  */
-public class UIController {
+public class ViewController {
 
     public void handleSaveClike(){
 

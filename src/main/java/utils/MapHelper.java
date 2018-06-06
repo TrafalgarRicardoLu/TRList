@@ -36,18 +36,11 @@ public class MapHelper {
     /**
      * get map
      *
-     * @param mapName
+     * @param menuName
      * @return HashMap
      */
-    public static HashMap getMapByMapName(String mapName) {
-        if (mapName.equals(label)) {
-            return maps.getLabelMap();
-        } else if (mapName.equals(priority)) {
-            return maps.getPriorityMap();
-        } else if (mapName.equals(project)) {
-            return maps.getProjectMap();
-        }
-        return null;
+    public static HashMap getMapByName(String menuName) {
+        return maps.getMapByName(menuName);
     }
 
     /**
@@ -56,11 +49,11 @@ public class MapHelper {
      * @param menuName
      * @return Set<String>
      */
-    public static Set<String> getFilterNamesByMenuName(String menuName) {
-        if(getMapByMapName(menuName)==null){
+    public static Set<String> getFilterNameListByMenuName(String menuName) {
+        if (getMapByName(menuName) == null) {
             return new ListOrderedSet<String>();
         }
-        return getMapByMapName(menuName).keySet();
+        return getMapByName(menuName).keySet();
     }
 
     /**
@@ -71,7 +64,7 @@ public class MapHelper {
      * @return List<VEvent>
      */
     public static List<VEvent> getEventListByFilterName(String menuName, String filterName) {
-        return (List<VEvent>) getMapByMapName(menuName).get(filterName);
+        return (List<VEvent>) getMapByName(menuName).get(filterName);
     }
 
 
@@ -98,16 +91,19 @@ public class MapHelper {
     }
 
     public static void deleteEventByUid(Uid uid) {
-        Map labelMap = getMapByMapName("label");
-        Map projectMap = getMapByMapName("project");
-        Map priotityMap = getMapByMapName("priority");
+        deleteEventAtMenu(uid,label);
+        deleteEventAtMenu(uid,project);
+        deleteEventAtMenu(uid,priority);
+    }
 
+    private static void deleteEventAtMenu(Uid uid,String menuName) {
+        Map menuMap = getMapByName(menuName);
 
-        Set<String> labelKeys = labelMap.keySet();
+        Set<String> labelKeys = menuMap.keySet();
         String tempKey = null;
         List<VEvent> tempList = null;
         for (String key : labelKeys) {
-            List<VEvent> eventList = (List<VEvent>) labelMap.get(key);
+            List<VEvent> eventList = (List<VEvent>) menuMap.get(key);
             for (VEvent event : eventList) {
                 if (event.getUid().getValue().equals(uid.getValue())) {
                     eventList.remove(event);
@@ -116,7 +112,9 @@ public class MapHelper {
                 }
             }
         }
-        labelMap.remove(tempKey);
-        labelMap.put(tempKey,tempList);
+        menuMap.remove(tempKey);
+        menuMap.put(tempKey, tempList);
     }
+
+
 }
