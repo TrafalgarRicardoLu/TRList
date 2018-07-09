@@ -44,21 +44,69 @@ public class TRList extends Application {
         eventListView = new ListView();
 
         calendarCreator = new Button("Create");
-        calendarLoader= new Button("Load");
+        calendarLoader = new Button("Load");
 
         labelList = new ListView();
         projectList = new ListView();
         priorityList = new ListView();
 
-        Object[] labelFilters = MapHelper.getFilterNameListByMenuName("label").toArray();
-        Object[] projectFilters = MapHelper.getFilterNameListByMenuName("project").toArray();
-        Object[] priorityFilters = MapHelper.getFilterNameListByMenuName("priority").toArray();
+        setListViewItems("label");
+        setListViewItems("project");
+        setListViewItems("priority");
 
-        ObservableList<Object> labelItems = FXCollections.observableArrayList(labelFilters);
-        ObservableList<Object> projectItems = FXCollections.observableArrayList(projectFilters);
-        ObservableList<Object> priorityItems = FXCollections.observableArrayList(priorityFilters);
+        TitledPane label = new TitledPane("Label", labelList);
+        TitledPane project = new TitledPane("Project", projectList);
+        TitledPane priority = new TitledPane("Priority", priorityList);
 
-        labelList.getSelectionModel().selectedItemProperty()
+        Accordion menuList = new Accordion();
+        menuList.getPanes().addAll(label, project, priority);
+        menuList.setMinSize(200, 400);
+
+        VBox leftView = new VBox();
+        HBox calendarButtons = new HBox();
+        calendarCreator.setPrefSize(100, 80);
+        calendarCreator.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                CalendarController calendarController = new CalendarController();
+                try {
+                    calendarController.createCalendar();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        calendarLoader.setPrefSize(100, 80);
+        calendarButtons.getChildren().addAll(calendarCreator, calendarLoader);
+
+        leftView.getChildren().addAll(calendarButtons, menuList);
+
+        HBox root = new HBox();
+        eventListView.setMinSize(400, 400);
+        root.getChildren().addAll(leftView, eventListView);
+
+        Scene scene = new Scene(root, 600, 400);
+        scene.getStylesheets().add(TRList.class.getResource("/bootstrap3.css").toExternalForm());
+
+        primaryStage.setTitle("TRList");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    private void setListViewItems(String menuName) {
+        Object[] Filters = MapHelper.getFilterNameListByMenuName("label").toArray();
+        ObservableList<Object> Items = FXCollections.observableArrayList(Filters);
+        ListView tempList = null;
+        if (menuName.equals("label")) {
+            tempList = labelList;
+        } else if (menuName.equals("project")) {
+            tempList = projectList;
+        } else if (menuName.equals("priority")) {
+            tempList = priorityList;
+        }
+        tempList.setItems(Items);
+
+        tempList.getSelectionModel().selectedItemProperty()
                 .addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(
@@ -77,88 +125,5 @@ public class TRList extends Application {
                         });
                     }
                 });
-
-
-        projectList.getSelectionModel().selectedItemProperty()
-                .addListener(new ChangeListener<String>() {
-                    @Override
-                    public void changed(
-                            ObservableValue<? extends String> observable,
-                            String oldValue, String newValue) {
-                        currentMenu = "project";
-                        currentFilter = newValue;
-                        List vEventList = MapHelper.getEventListByFilterName("project", newValue);
-                        ObservableList eventList = FXCollections.observableArrayList(vEventList);
-                        eventListView.setItems(eventList);
-                        eventListView.setCellFactory(new Callback<ListView<VEvent>, ListCell<VEvent>>() {
-                            @Override
-                            public ListCell<VEvent> call(ListView<VEvent> param) {
-                                return new Event();
-                            }
-                        });
-                    }
-                });
-
-        priorityList.getSelectionModel().selectedItemProperty()
-                .addListener(new ChangeListener<String>() {
-                    @Override
-                    public void changed(
-                            ObservableValue<? extends String> observable,
-                            String oldValue, String newValue) {
-                        currentMenu = "priority";
-                        currentFilter = newValue;
-                        List vEventList = MapHelper.getEventListByFilterName("priority", newValue);
-                        ObservableList eventList = FXCollections.observableArrayList(vEventList);
-                        eventListView.setItems(eventList);
-                        eventListView.setCellFactory(new Callback<ListView<VEvent>, ListCell<VEvent>>() {
-                            @Override
-                            public ListCell<VEvent> call(ListView<VEvent> param) {
-                                return new Event();
-                            }
-                        });
-                    }
-                });
-
-        labelList.setItems(labelItems);
-        projectList.setItems(projectItems);
-        priorityList.setItems(priorityItems);
-
-        TitledPane label = new TitledPane("Label", labelList);
-        TitledPane project = new TitledPane("Project", projectList);
-        TitledPane priority = new TitledPane("Priority", priorityList);
-
-        Accordion menuList = new Accordion();
-        menuList.getPanes().addAll(label, project, priority);
-        menuList.setMinSize(200,400);
-
-        VBox leftView = new VBox();
-        HBox calendarButtons = new HBox();
-        calendarCreator.setPrefSize(100,80);
-        calendarCreator.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                CalendarController calendarController = new CalendarController();
-                try {
-                    calendarController.createCalendar();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        calendarLoader.setPrefSize(100,80);
-        calendarButtons.getChildren().addAll(calendarCreator,calendarLoader);
-
-        leftView.getChildren().addAll(calendarButtons,menuList);
-
-        HBox root = new HBox();
-        eventListView.setMinSize(400,400);
-        root.getChildren().addAll(leftView, eventListView);
-
-        Scene scene = new Scene(root, 600, 400);
-        scene.getStylesheets().add(TRList.class.getResource("/bootstrap3.css").toExternalForm());
-
-        primaryStage.setTitle("TRList");
-        primaryStage.setScene(scene);
-        primaryStage.show();
     }
 }
