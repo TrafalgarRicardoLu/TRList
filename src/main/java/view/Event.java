@@ -17,7 +17,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.property.DtEnd;
 import net.fortuna.ical4j.model.property.Summary;
 import org.dom4j.DocumentException;
 import utils.DateHelper;
@@ -87,6 +89,7 @@ public class Event extends ListCell<VEvent> {
             HBox nameBox = new HBox();
             TextField nameInput = new TextField(eventName.getText());
             nameBox.getChildren().addAll(nameLabel, eventName);
+
             eventName.setOnMousePressed(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -94,6 +97,8 @@ public class Event extends ListCell<VEvent> {
                     nameBox.getChildren().addAll(nameInput);
                 }
             });
+
+
             nameBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent event) {
@@ -118,7 +123,31 @@ public class Event extends ListCell<VEvent> {
 
 
             HBox dateBox = new HBox();
+            TextField dateInput = new TextField(eventDate.getText());
             dateBox.getChildren().addAll(dateLabel, eventDate);
+
+            eventDate.setOnMousePressed(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    dateBox.getChildren().remove(eventDate);
+                    dateBox.getChildren().add(dateInput);
+                }
+            });
+
+            dateBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                @Override
+                public void handle(KeyEvent event) {
+                    if (event.getCode() == KeyCode.ENTER) {
+                        dateBox.getChildren().remove(dateInput);
+                        eventDate.setText(dateInput.getText());
+                        dateBox.getChildren().addAll(eventDate);
+
+                        item.getProperties().remove(item.getEndDate());
+                        item.getProperties().add(new DtEnd(DateHelper.getCalDate(dateInput.getText())));
+
+                    }
+                }
+            });
 
             VBox infoBox = new VBox();
             infoBox.getChildren().addAll(nameBox, dateBox);
