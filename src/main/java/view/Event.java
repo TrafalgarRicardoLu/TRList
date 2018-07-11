@@ -144,7 +144,14 @@ public class Event extends ListCell<VEvent> {
 
                         item.getProperties().remove(item.getEndDate());
                         item.getProperties().add(new DtEnd(DateHelper.getCalDate(dateInput.getText())));
-
+                        CalendarController calendarController = new CalendarController();
+                        try {
+                            calendarController.updateCalendar(item);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (ParserException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
             });
