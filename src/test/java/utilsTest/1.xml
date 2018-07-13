@@ -4,8 +4,12 @@
   <todo> 
     <label> 
       <filter name="shopping"> 
-        <uid>1</uid> 
-      </filter>  
+        <uid>1</uid>
+        <uid>12</uid>
+        <uid>3</uid>
+        <uid>4</uid>
+        <uid>3333</uid>
+      </filter>
       <filter name="working"> 
         <uid>12</uid> 
       </filter> 

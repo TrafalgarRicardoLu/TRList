@@ -20,7 +20,6 @@ import utils.MapHelper;
 import java.io.IOException;
 import java.util.List;
 
-import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
 
 /**
  * @author trafalgar

@@ -17,9 +17,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import net.fortuna.ical4j.data.ParserException;
-import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.component.VEvent;
-import net.fortuna.ical4j.model.property.DtEnd;
 import net.fortuna.ical4j.model.property.Summary;
 import org.dom4j.DocumentException;
 import utils.DateHelper;
@@ -34,7 +32,7 @@ import java.util.List;
  */
 public class Event extends ListCell<VEvent> {
 
-    Button saveButton = new Button("Finished");
+    Button finishedButton = new Button("Finished");
     Label nameLabel = new Label("Name: ");
     Label dateLabel = new Label("Date: ");
     Label eventName;
@@ -45,11 +43,7 @@ public class Event extends ListCell<VEvent> {
         super.updateItem(item, empty);
         if (item != null) {
 
-            HBox hbox = new HBox();
-            hbox.setPadding(new Insets(15, 12, 15, 10));
-            hbox.setSpacing(10);
-
-            String summary = item.getSummary().toString().substring(8);
+           String summary = item.getSummary().toString().substring(8);
             String endDate = item.getEndDate().toString().substring(6);
 
             try {
@@ -58,7 +52,7 @@ public class Event extends ListCell<VEvent> {
                 e.printStackTrace();
             }
 
-            saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            finishedButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
                     try {
@@ -143,15 +137,8 @@ public class Event extends ListCell<VEvent> {
                         dateBox.getChildren().addAll(eventDate);
 
                         item.getProperties().remove(item.getEndDate());
-                        item.getProperties().add(new DtEnd(DateHelper.getCalDate(dateInput.getText())));
-                        CalendarController calendarController = new CalendarController();
-                        try {
-                            calendarController.updateCalendar(item);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        } catch (ParserException e) {
-                            e.printStackTrace();
-                        }
+                        item.getProperties().add(new Summary(dateInput.getText()));
+
                     }
                 }
             });
@@ -161,13 +148,16 @@ public class Event extends ListCell<VEvent> {
             infoBox.setAlignment(Pos.CENTER_LEFT);
 
             StackPane buttonStack = new StackPane();
-            buttonStack.getChildren().addAll(saveButton);
+            buttonStack.getChildren().addAll(finishedButton);
             buttonStack.setAlignment(Pos.CENTER_RIGHT);
 
-            hbox.getChildren().addAll(infoBox, buttonStack);
+            HBox mainBox = new HBox();
+            mainBox.setPadding(new Insets(15, 12, 15, 10));
+            mainBox.setSpacing(10);
+            mainBox.getChildren().addAll(infoBox, buttonStack);
             HBox.setHgrow(buttonStack, Priority.ALWAYS);
 
-            setGraphic(hbox);
+            setGraphic(mainBox);
         }
     }
 
