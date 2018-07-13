@@ -20,6 +20,8 @@ import utils.MapHelper;
 import java.io.IOException;
 import java.util.List;
 
+import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
+
 /**
  * @author trafalgar
  */
@@ -40,7 +42,7 @@ public class TRList extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage){
         eventListView = new ListView();
 
         calendarCreator = new Button("Create");
@@ -54,12 +56,12 @@ public class TRList extends Application {
         setListViewItems("project");
         setListViewItems("priority");
 
-        TitledPane label = new TitledPane("Label", labelList);
-        TitledPane project = new TitledPane("Project", projectList);
-        TitledPane priority = new TitledPane("Priority", priorityList);
+        TitledPane labelPane = new TitledPane("Label", labelList);
+        TitledPane projectPane = new TitledPane("Project", projectList);
+        TitledPane priorityPane = new TitledPane("Priority", priorityList);
 
         Accordion menuList = new Accordion();
-        menuList.getPanes().addAll(label, project, priority);
+        menuList.getPanes().addAll(labelPane, projectPane, priorityPane);
         menuList.setMinSize(200, 400);
 
         VBox leftView = new VBox();
@@ -85,7 +87,7 @@ public class TRList extends Application {
         eventListView.setMinSize(400, 400);
         root.getChildren().addAll(leftView, eventListView);
 
-        Scene scene = new Scene(root, 600, 400);
+        Scene scene = new Scene(root, 600, 500);
         scene.getStylesheets().add(TRList.class.getResource("/bootstrap3.css").toExternalForm());
 
         primaryStage.setTitle("TRList");
@@ -93,9 +95,13 @@ public class TRList extends Application {
         primaryStage.show();
     }
 
+
+
     private void setListViewItems(String menuName) {
-        Object[] Filters = MapHelper.getFilterNameListByMenuName("label").toArray();
+        //set filters
+        Object[] Filters = MapHelper.getFilterNameListByMenuName(menuName).toArray();
         ObservableList<Object> Items = FXCollections.observableArrayList(Filters);
+
         ListView tempList = null;
         if (menuName.equals("label")) {
             tempList = labelList;
@@ -106,15 +112,16 @@ public class TRList extends Application {
         }
         tempList.setItems(Items);
 
+        //set events
         tempList.getSelectionModel().selectedItemProperty()
                 .addListener(new ChangeListener<String>() {
                     @Override
                     public void changed(
                             ObservableValue<? extends String> observable,
                             String oldValue, String newValue) {
-                        currentMenu = "label";
+                        currentMenu = menuName;
                         currentFilter = newValue;
-                        List vEventList = MapHelper.getEventListByFilterName("label", newValue);
+                        List vEventList = MapHelper.getEventListByFilterName(menuName, newValue);
                         ObservableList eventList = FXCollections.observableArrayList(vEventList);
                         eventListView.setItems(eventList);
                         eventListView.setCellFactory(new Callback<ListView<VEvent>, ListCell<VEvent>>() {

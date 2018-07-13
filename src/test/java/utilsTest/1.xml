@@ -4,24 +4,30 @@
   <todo> 
     <label> 
       <filter name="shopping"> 
-        <uid>1</uid>  
-        <uid>3333</uid> 
+        <uid>1</uid> 
       </filter>  
-      <filter name="working">
-        <uid>12</uid>
-      </filter>
+      <filter name="working"> 
+        <uid>12</uid> 
+      </filter> 
     </label>  
     <project> 
       <filter name="TRList"> 
         <uid>3</uid> 
-      </filter> 
+      </filter>
+      <filter name="TRLuck">
+        <uid>4</uid>
+      </filter>
     </project>  
     <priority> 
       <filter name="First"> 
         <uid>4</uid> 
-      </filter> 
+      </filter>
+      <filter name="Second">
+        <uid>3333</uid>
+      </filter>
     </priority> 
   </todo>  
   <finished> 
-  </finished>
+    <uid>3333</uid>
+  </finished> 
 </data>
