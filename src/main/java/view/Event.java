@@ -46,11 +46,7 @@ public class Event extends ListCell<VEvent> {
            String summary = item.getSummary().toString().substring(8);
             String endDate = item.getEndDate().toString().substring(6);
 
-            try {
-                endDate = DateHelper.getDate(endDate);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+            endDate = DateHelper.getDate(endDate);
 
             finishedButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override

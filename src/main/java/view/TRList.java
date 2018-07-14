@@ -18,6 +18,7 @@ import net.fortuna.ical4j.model.component.VEvent;
 import utils.MapHelper;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -27,6 +28,7 @@ import java.util.List;
 public class TRList extends Application {
 
     static ListView eventListView;
+    static ListView emptyListView;
     ListView labelList;
     ListView projectList;
     ListView priorityList;
@@ -43,7 +45,7 @@ public class TRList extends Application {
     @Override
     public void start(Stage primaryStage){
         eventListView = new ListView();
-
+        emptyListView = new ListView();
         calendarCreator = new Button("Create");
         calendarLoader = new Button("Load");
 
@@ -82,9 +84,29 @@ public class TRList extends Application {
 
         leftView.getChildren().addAll(calendarButtons, menuList);
 
+        emptyListView =new ListView();
+        emptyListView.setMaxSize(400,150);
+        List<String> emptyList = new LinkedList();
+        emptyList.add("Add");
+        for(String i: emptyList){
+            System.out.println(i);
+        }
+        ObservableList emptyItem = FXCollections.observableArrayList(emptyList);
+        System.out.println(emptyItem.size());
+        emptyListView.setItems(emptyItem);
+        emptyListView.setCellFactory(new Callback<ListView, ListCell>() {
+            @Override
+            public ListCell call(ListView param) {
+                return new emptyCell();
+            }
+        });
+
+        VBox eventBox = new VBox();
+        eventBox.setMinSize(400, 400);
+        eventBox.getChildren().addAll(eventListView, emptyListView);
+
         HBox root = new HBox();
-        eventListView.setMinSize(400, 400);
-        root.getChildren().addAll(leftView, eventListView);
+        root.getChildren().addAll(leftView, eventBox);
 
         Scene scene = new Scene(root, 600, 500);
         scene.getStylesheets().add(TRList.class.getResource("/bootstrap3.css").toExternalForm());

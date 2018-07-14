@@ -3,32 +3,32 @@
 <data xmlns="http://www.TRList.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.TRList.com data.xsd">  
   <todo> 
     <label> 
-      <filter name="shopping">
-        <uid>1</uid>
-        <uid>4</uid>
-      </filter>
-      <filter name="working">
-        <uid>12</uid>
-      </filter>
-    </label>
-    <project>
-      <filter name="TRList">
-        <uid>3</uid>
-      </filter>
-      <filter name="TRLuck">
-        <uid>4</uid>
-      </filter>
-    </project>
-    <priority>
-      <filter name="First">
-        <uid>6</uid>
-      </filter>
-      <filter name="Second">
-        <uid>3333</uid>
-      </filter>
-    </priority>
-  </todo>
-  <finished>
-
-  </finished> 
+      <filter name="shopping"> 
+        <uid>1</uid>  
+        <uid>4</uid>  
+        <uid>1222222</uid>
+      </filter>  
+      <filter name="working"> 
+        <uid>12</uid>  
+        <uid>1212212</uid> 
+      </filter> 
+    </label>  
+    <project> 
+      <filter name="TRList"> 
+        <uid>3</uid> 
+      </filter>  
+      <filter name="TRLuck"> 
+        <uid>4</uid> 
+      </filter> 
+    </project>  
+    <priority> 
+      <filter name="First"> 
+        <uid>6</uid> 
+      </filter>  
+      <filter name="Second"> 
+        <uid>3333</uid> 
+      </filter> 
+    </priority> 
+  </todo>  
+  <finished/> 
 </data>

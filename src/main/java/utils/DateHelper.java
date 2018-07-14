@@ -5,7 +5,6 @@ import net.fortuna.ical4j.model.TimeZone;
 import net.fortuna.ical4j.model.TimeZoneRegistry;
 import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
 
-import java.text.ParseException;
 import java.util.GregorianCalendar;
 
 /**
@@ -15,10 +14,10 @@ public class DateHelper {
 
     private static MONTH[] months = MONTH.values();
 
-    public static String getDate(String originDate) throws ParseException {
+    public static String getDate(String originDate){
         String year = originDate.substring(0, 4);
 
-        Integer monthIndex = Integer.parseInt(originDate.substring(4, 6)) - 1;
+        Integer monthIndex = Integer.parseInt(originDate.substring(4, 6));
         String monthName = null;
         for (MONTH month : months) {
             if (month.getMonthIndex() == monthIndex) {
@@ -37,10 +36,6 @@ public class DateHelper {
     public static DateTime getCalDate(String originDate) {
         String[] dates = originDate.split("-|:| ");
 
-        for(String i:dates){
-            System.out.println(i);
-        }
-
         int monthIndex = 0;
         for (MONTH month : months) {
             if (month.getMonthName().equals(dates[1])) {
@@ -54,8 +49,8 @@ public class DateHelper {
 
         java.util.Calendar date = new GregorianCalendar();
         date.setTimeZone(timezone);
-        date.set(java.util.Calendar.MONTH, monthIndex);
-        date.set(java.util.Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2]));
+        date.set(java.util.Calendar.MONTH, monthIndex-1);
+        date.set(java.util.Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2])-1);
         date.set(java.util.Calendar.YEAR, Integer.parseInt(dates[0]));
         date.set(java.util.Calendar.HOUR_OF_DAY, Integer.parseInt(dates[3]));
         date.set(java.util.Calendar.MINUTE, Integer.parseInt(dates[4]));

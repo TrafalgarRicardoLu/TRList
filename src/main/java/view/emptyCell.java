@@ -1,5 +1,7 @@
 package view;
 
+import controller.CalendarController;
+import controller.XmlController;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -12,6 +14,16 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.DateTime;
+import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.property.Uid;
+import org.dom4j.DocumentException;
+import utils.DateHelper;
+import utils.UidGenerator;
+
+import java.io.IOException;
+import java.util.Date;
 
 public class emptyCell extends ListCell<String> {
 
@@ -43,7 +55,31 @@ public class emptyCell extends ListCell<String> {
         addButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                
+                String name = nameInput.getText();
+                String dateString = dateInput.getText();
+                DateTime endDate = DateHelper.getCalDate(dateString);
+                DateTime startDate = new DateTime(new Date().getTime());
+                VEvent vEvent = new VEvent(startDate,endDate,name);
+                Uid uid = new Uid("1222222");
+                vEvent.getProperties().add(uid);
+                CalendarController calendarController = new CalendarController();
+                try {
+                    calendarController.updateCalendar(vEvent);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ParserException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    XmlController.insertTodoUid(TRList.currentMenu,TRList.currentFilter,vEvent);
+                } catch (DocumentException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                nameInput.clear();
+                dateInput.clear();
             }
         });
 

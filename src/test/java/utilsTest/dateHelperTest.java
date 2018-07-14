@@ -9,12 +9,12 @@ public class dateHelperTest {
 
     @Test
     public void testDateFormat() throws ParseException {
-        DateHelper.getDate("20080401T130000Z");
+        System.out.println(DateHelper.getDate("20080401T130000Z"));
     }
 
     @Test
     public void testCalDateFormat(){
-        String date = "2018-Ap-23-16:30";
-        DateHelper.getCalDate(date);
+        String date = "2018-Apr-23-16:30";
+        System.out.println(DateHelper.getCalDate(date));
     }
 }

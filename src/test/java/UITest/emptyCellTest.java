@@ -21,7 +21,7 @@ public class emptyCellTest extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        ObservableList<String> strList = FXCollections.observableArrayList("红色","黄色","绿色");
+        ObservableList<String> strList = FXCollections.observableArrayList("红色");
 
         ListView<String> eventList = new ListView<>();
         eventList.setMinWidth(400);
