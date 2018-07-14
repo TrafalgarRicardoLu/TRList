@@ -91,18 +91,18 @@ public class MapHelper {
     }
 
     public static void deleteEventByUid(Uid uid) {
-        deleteEventAtMenu(uid,label);
-        deleteEventAtMenu(uid,project);
-        deleteEventAtMenu(uid,priority);
+        deleteEventAtMenu(uid, label);
+        deleteEventAtMenu(uid, project);
+        deleteEventAtMenu(uid, priority);
     }
 
-    private static void deleteEventAtMenu(Uid uid,String menuName) {
+    private static void deleteEventAtMenu(Uid uid, String menuName) {
         Map menuMap = getMapByName(menuName);
 
-        Set<String> labelKeys = menuMap.keySet();
+        Set<String> keys = menuMap.keySet();
         String tempKey = null;
         List<VEvent> tempList = null;
-        for (String key : labelKeys) {
+        for (String key : keys) {
             List<VEvent> eventList = (List<VEvent>) menuMap.get(key);
             for (VEvent event : eventList) {
                 if (event.getUid().getValue().equals(uid.getValue())) {
@@ -112,8 +112,10 @@ public class MapHelper {
                 }
             }
         }
-        menuMap.remove(tempKey);
-        menuMap.put(tempKey, tempList);
+        if (tempKey != null) {
+            menuMap.remove(tempKey);
+            menuMap.put(tempKey, tempList);
+        }
     }
 
 

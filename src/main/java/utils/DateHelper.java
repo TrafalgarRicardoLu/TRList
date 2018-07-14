@@ -30,12 +30,16 @@ public class DateHelper {
         int hour = Integer.parseInt(originDate.substring(9, 11));
         String minute = originDate.substring(11, 13);
 
-        String date = year + "-" + monthName + "-" + day + "  " + hour + ":" + minute;
+        String date = year + "-" + monthName + "-" + day + " " + hour + ":" + minute;
         return date;
     }
 
     public static DateTime getCalDate(String originDate) {
         String[] dates = originDate.split("-|:| ");
+
+        for(String i:dates){
+            System.out.println(i);
+        }
 
         int monthIndex = 0;
         for (MONTH month : months) {
@@ -53,8 +57,8 @@ public class DateHelper {
         date.set(java.util.Calendar.MONTH, monthIndex);
         date.set(java.util.Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2]));
         date.set(java.util.Calendar.YEAR, Integer.parseInt(dates[0]));
-        date.set(java.util.Calendar.HOUR_OF_DAY, Integer.parseInt(dates[4]));
-        date.set(java.util.Calendar.MINUTE, Integer.parseInt(dates[5]));
+        date.set(java.util.Calendar.HOUR_OF_DAY, Integer.parseInt(dates[3]));
+        date.set(java.util.Calendar.MINUTE, Integer.parseInt(dates[4]));
         date.set(java.util.Calendar.SECOND, 0);
 
         return new DateTime(date.getTime());
