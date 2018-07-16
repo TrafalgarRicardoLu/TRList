@@ -122,4 +122,9 @@ public class MapHelper {
         menuMap.put(filterName,eventList);
 
     }
+
+    public static void insertFilter(String menuName,String filterName){
+        HashMap menuMap = getMapByName(menuName);
+        menuMap.put(filterName,new LinkedList<VEvent>());
+    }
 }

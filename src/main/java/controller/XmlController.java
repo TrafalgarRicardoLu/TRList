@@ -205,4 +205,26 @@ public class XmlController {
 
         insertFinishedUid(uid);
     }
+
+    public void insertFilter(String menuName, String filterName) throws DocumentException, IOException {
+        List<Element> menus = document.getRootElement().element("todo").elements();
+        Element menu = null;
+
+        for (Element i : menus) {
+            if(i.getName().equals(menuName)){
+                menu=i;
+                break;
+            }
+        }
+
+        menu.addElement("filter").addAttribute("name",filterName);
+
+        OutputFormat format = OutputFormat.createPrettyPrint();
+        format.setEncoding("UTF-8");
+        XMLWriter writer = new XMLWriter(new FileWriter(XMLPath), format);
+        writer.write(document);
+        writer.close();
+
+
+    }
 }

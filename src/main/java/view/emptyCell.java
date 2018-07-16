@@ -83,17 +83,7 @@ public class emptyCell extends ListCell<String> {
                     e.printStackTrace();
                 }
 
-                MapHelper.insertEvent(vEvent,TRList.currentMenu,TRList.currentFilter);
-                List vEventList = MapHelper.getEventListByFilterName(TRList.currentMenu, TRList.currentFilter);
-                ObservableList eventList = FXCollections.observableArrayList(vEventList);
-                TRList.eventListView.setItems(eventList);
-                TRList.eventListView.setCellFactory(new Callback<ListView<VEvent>, ListCell<VEvent>>() {
-                    @Override
-                    public ListCell<VEvent> call(ListView<VEvent> param) {
-                        return new Event();
-                    }
-                });
-
+                TRList.updateEventList();
                 nameInput.clear();
                 dateInput.clear();
             }

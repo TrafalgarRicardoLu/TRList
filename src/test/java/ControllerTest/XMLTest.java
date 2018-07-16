@@ -96,4 +96,9 @@ public class XMLTest {
         }
     }
 
+    @Test
+    public void testInsertFilter() throws IOException, DocumentException {
+        XmlController.insertFilter("label","New");
+    }
+
 }

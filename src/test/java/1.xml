@@ -7,30 +7,30 @@
         <uid>1</uid>  
         <uid>4</uid>  
         <uid>1222222</uid>  
-        <uid>723ebc71-939e-4ee6-9103-1e0593c8171d</uid>
+        <uid>723ebc71-939e-4ee6-9103-1e0593c8171d</uid> 
       </filter>  
       <filter name="working"> 
         <uid>12</uid>  
         <uid>1212212</uid>  
         <uid>d96e385a-e191-4730-a957-890563b5a78b</uid> 
-      </filter> 
-    </label>  
+      </filter>  
+    </label>
     <project> 
       <filter name="TRList"> 
         <uid>3</uid> 
       </filter>  
       <filter name="TRLuck"> 
         <uid>4</uid> 
-      </filter> 
-    </project>  
+      </filter>  
+    </project>
     <priority> 
       <filter name="First"> 
         <uid>6</uid> 
       </filter>  
       <filter name="Second"> 
         <uid>3333</uid> 
-      </filter> 
-    </priority> 
+      </filter>  
+    </priority>
   </todo>  
   <finished/> 
 </data>

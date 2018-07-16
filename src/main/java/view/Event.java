@@ -55,15 +55,7 @@ public class Event extends ListCell<VEvent> {
                         XmlController XmlController = new XmlController();
                         XmlController.markUidAsFinished(item.getUid());
                         MapHelper.deleteEventByUid(item.getUid());
-                        List vEventList = MapHelper.getEventListByFilterName(TRList.currentMenu, TRList.currentFilter);
-                        ObservableList eventList = FXCollections.observableArrayList(vEventList);
-                        TRList.eventListView.setItems(eventList);
-                        TRList.eventListView.setCellFactory(new Callback<ListView<VEvent>, ListCell<VEvent>>() {
-                            @Override
-                            public ListCell<VEvent> call(ListView<VEvent> param) {
-                                return new Event();
-                            }
-                        });
+                        TRList.updateEventList();
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (DocumentException e) {
