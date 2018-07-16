@@ -1,5 +1,9 @@
 package utils;
 
+/**
+ * @author trafalgar
+ */
+
 public enum MONTH {
     Jan("Jan", 1), Feb("Feb", 2), Mar("Mar", 3),
     Apr("Apr", 4), May("May", 5), Jun("Jun", 6),
@@ -19,7 +23,7 @@ public enum MONTH {
         return monthIndex;
     }
 
-    public String getMonthName(){
+    public String getMonthName() {
         return monthName;
     }
 

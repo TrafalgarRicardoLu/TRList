@@ -15,10 +15,6 @@ import java.util.*;
  */
 public class MapHelper {
 
-    private static final String label = "label";
-    private static final String priority = "priority";
-    private static final String project = "project";
-
     private static Maps maps;
 
     static {
@@ -51,7 +47,6 @@ public class MapHelper {
      */
     public static Set<String> getFilterNameListByMenuName(String menuName) {
         if (getMapByName(menuName) == null) {
-            System.out.println("Map NULL");
             return new ListOrderedSet<String>();
         }
         return getMapByName(menuName).keySet();
@@ -92,9 +87,9 @@ public class MapHelper {
     }
 
     public static void deleteEventByUid(Uid uid) {
-        deleteEventAtMenu(uid, label);
-        deleteEventAtMenu(uid, project);
-        deleteEventAtMenu(uid, priority);
+        deleteEventAtMenu(uid, "label");
+        deleteEventAtMenu(uid, "project");
+        deleteEventAtMenu(uid, "priority");
     }
 
     private static void deleteEventAtMenu(Uid uid, String menuName) {
@@ -119,5 +114,12 @@ public class MapHelper {
         }
     }
 
+    public static void insertEvent(VEvent event,String menuName, String filterName){
+        HashMap menuMap = getMapByName(menuName);
+        List eventList = getEventListByFilterName(menuName,filterName);
 
+        eventList.add(event);
+        menuMap.put(filterName,eventList);
+
+    }
 }

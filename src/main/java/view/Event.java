@@ -43,7 +43,7 @@ public class Event extends ListCell<VEvent> {
         super.updateItem(item, empty);
         if (item != null) {
 
-           String summary = item.getSummary().toString().substring(8);
+            String summary = item.getSummary().toString().substring(8);
             String endDate = item.getEndDate().toString().substring(6);
 
             endDate = DateHelper.getDate(endDate);
@@ -149,10 +149,10 @@ public class Event extends ListCell<VEvent> {
             buttonStack.setAlignment(Pos.CENTER_RIGHT);
 
             HBox mainBox = new HBox();
+            HBox.setHgrow(buttonStack, Priority.ALWAYS);
             mainBox.setPadding(new Insets(15, 12, 15, 10));
             mainBox.setSpacing(10);
             mainBox.getChildren().addAll(infoBox, buttonStack);
-            HBox.setHgrow(buttonStack, Priority.ALWAYS);
 
             setGraphic(mainBox);
         }
