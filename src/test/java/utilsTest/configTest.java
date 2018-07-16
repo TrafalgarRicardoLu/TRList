@@ -5,7 +5,7 @@ import utils.conf.ConfigHelper;
 
 import java.io.IOException;
 
-public class utilTest {
+public class configTest {
 
     @Test
     public void testProperties() throws IOException {

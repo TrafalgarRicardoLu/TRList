@@ -24,7 +24,6 @@ import utils.DateHelper;
 import utils.MapHelper;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.List;
 
 /**
@@ -37,6 +36,7 @@ public class Event extends ListCell<VEvent> {
     Label dateLabel = new Label("Date: ");
     Label eventName;
     Label eventDate;
+
 
     @Override
     protected void updateItem(VEvent item, boolean empty) {
@@ -52,6 +52,7 @@ public class Event extends ListCell<VEvent> {
                 @Override
                 public void handle(MouseEvent event) {
                     try {
+                        XmlController XmlController = new XmlController();
                         XmlController.markUidAsFinished(item.getUid());
                         MapHelper.deleteEventByUid(item.getUid());
                         List vEventList = MapHelper.getEventListByFilterName(TRList.currentMenu, TRList.currentFilter);
@@ -99,9 +100,9 @@ public class Event extends ListCell<VEvent> {
 
                         item.getProperties().remove(item.getSummary());
                         item.getProperties().add(new Summary(nameInput.getText()));
-                        CalendarController calendarController = new CalendarController();
+                        CalendarController CalendarController = new CalendarController();
                         try {
-                            calendarController.updateCalendar(item);
+                            CalendarController.updateCalendar(item);
                         } catch (IOException e) {
                             e.printStackTrace();
                         } catch (ParserException e) {

@@ -31,9 +31,11 @@ public class Maps {
 
     private static HashMap<String, List<VEvent>> projectMap = new HashMap<>();
 
+    private static XmlController XmlController = new XmlController();
+
     /**
-     * get Uids of event for each filter names from xmlController
-     * then get event by Uid from calendarController
+     * get Uids of event for each filter names from XmlController
+     * then get event by Uid from CalendarController
      * put filter name and related event into map
      * <p>
      * Singleton Pattern

@@ -39,7 +39,7 @@ public class XmlController {
      * @return List<Element>
      * @throws DocumentException
      */
-    public static List<Element> getTodoFilterListByMenuName(String menuName) throws DocumentException {
+    public List<Element> getTodoFilterListByMenuName(String menuName) throws DocumentException {
 
         Element root = document.getRootElement();
         Element menu = root.element("todo").element(menuName);
@@ -54,7 +54,7 @@ public class XmlController {
      * @return List<String>
      * @throws DocumentException
      */
-    public static List<String> getFilterNameListByMenuName(String menuName) throws DocumentException {
+    public List<String> getFilterNameListByMenuName(String menuName) throws DocumentException {
         List<Element> filters = getTodoFilterListByMenuName(menuName);
         List<String> filterNames = new LinkedList<>();
 
@@ -74,7 +74,7 @@ public class XmlController {
      * @return List<String>
      * @throws DocumentException
      */
-    public static List<String> getUidListByFilterName(String menuName, String filterName) throws DocumentException {
+    public List<String> getUidListByFilterName(String menuName, String filterName) throws DocumentException {
         List<Element> filters = getTodoFilterListByMenuName(menuName);
         List<String> uids = new LinkedList<>();
 
@@ -95,7 +95,7 @@ public class XmlController {
      * @throws IOException
      */
 
-    public static void createXML() throws IOException {
+    public void createXML() throws IOException {
         File dividedFile = new File(XMLPath);
         if (!dividedFile.exists()) {
             dividedFile.createNewFile();
@@ -111,7 +111,7 @@ public class XmlController {
      * @throws DocumentException
      * @throws IOException
      */
-    public static void insertTodoUid(String menuName, String filterName, VEvent vEvent) throws DocumentException, IOException {
+    public void insertTodoUid(String menuName, String filterName, VEvent vEvent) throws DocumentException, IOException {
         String uid = vEvent.getUid().getValue();
         List<Element> filters = getTodoFilterListByMenuName(menuName);
         Element filter = null;
@@ -146,7 +146,7 @@ public class XmlController {
      * @throws DocumentException
      * @throws IOException
      */
-    public static void deleteTodoUid(String menuName, Uid uid) throws DocumentException, IOException {
+    public void deleteTodoUid(String menuName, Uid uid) throws DocumentException, IOException {
         List<Element> filters = getTodoFilterListByMenuName(menuName);
 
         for (Element filter : filters) {
@@ -171,14 +171,14 @@ public class XmlController {
      * @return List<Element>
      * @throws DocumentException
      */
-    public static List<Element> getFinishedUidList() throws DocumentException {
+    public List<Element> getFinishedUidList() throws DocumentException {
 
         Element root = document.getRootElement();
         List<Element> finishedUids = root.element("finished").elements();
         return finishedUids;
     }
 
-    public static void insertFinishedUid(Uid uid) throws IOException {
+    public void insertFinishedUid(Uid uid) throws IOException {
         Element root = document.getRootElement();
         Element finished = root.element("finished");
         List<Element> finishedUids = finished.elements();
@@ -198,7 +198,7 @@ public class XmlController {
         writer.close();
     }
 
-    public static void markUidAsFinished(Uid uid) throws IOException, DocumentException {
+    public void markUidAsFinished(Uid uid) throws IOException, DocumentException {
         deleteTodoUid("label", uid);
         deleteTodoUid("project", uid);
         deleteTodoUid("priority", uid);

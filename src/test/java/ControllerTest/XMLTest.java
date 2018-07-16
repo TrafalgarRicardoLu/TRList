@@ -1,4 +1,4 @@
-package utilsTest;
+package ControllerTest;
 
 import controller.XmlController;
 import net.fortuna.ical4j.model.component.VEvent;
@@ -15,10 +15,13 @@ import java.io.IOException;
 import java.util.List;
 
 public class XMLTest {
+
+    XmlController XmlController = new XmlController();
+
     @Test
     public void testDom() throws DocumentException {
         SAXReader reader = new SAXReader();
-        File file = new File("/home/trafalgar/IdeaProjects/TRList/src/test/java/utilsTest/1.xml");
+        File file = new File("/home/trafalgar/IdeaProjects/TRList/src/test/java/1.xml");
         Document document = reader.read(file);
         Element root = document.getRootElement();
         Element label = root.element("label");
@@ -61,28 +64,36 @@ public class XMLTest {
         UidGenerator uidGenerator = new UidGenerator();
         Uid uid = uidGenerator.generateUid();
         vEvent.getProperties().add(uid);
-       XmlController.deleteTodoUid("label", uid);
+        XmlController.deleteTodoUid("label", uid);
     }
 
     @Test
     public void testAddFinishedUid() throws IOException {
         Uid uid = new Uid("122");
-       XmlController.insertFinishedUid(uid);
+        XmlController.insertFinishedUid(uid);
     }
 
     @Test
     public void testMoveUidToFinished() throws IOException, DocumentException {
         Uid uid = new Uid("2");
-       XmlController.markUidAsFinished(uid);
+        XmlController.markUidAsFinished(uid);
     }
 
     @Test
     public void testGetFinishedUId() throws DocumentException {
         List<Element> uids = XmlController.getFinishedUidList();
-        for(Element i:uids){
+        for (Element i : uids) {
             System.out.println(i.getText());
         }
 
+    }
+
+    @Test
+    public void testGetFiltersByMenuName() throws DocumentException {
+        List<String> filters = XmlController.getFilterNameListByMenuName("label");
+        for(String i: filters){
+            System.out.println(i);
+        }
     }
 
 }

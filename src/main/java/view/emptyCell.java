@@ -60,16 +60,19 @@ public class emptyCell extends ListCell<String> {
                 DateTime endDate = DateHelper.getCalDate(dateString);
                 DateTime startDate = new DateTime(new Date().getTime());
                 VEvent vEvent = new VEvent(startDate,endDate,name);
-                Uid uid = new Uid("1222222");
+                UidGenerator uidGenerator = new UidGenerator();
+                Uid uid = uidGenerator.generateUid();
                 vEvent.getProperties().add(uid);
-                CalendarController calendarController = new CalendarController();
+                CalendarController CalendarController = new CalendarController();
                 try {
-                    calendarController.updateCalendar(vEvent);
+                    CalendarController.updateCalendar(vEvent);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (ParserException e) {
                     e.printStackTrace();
                 }
+
+                XmlController XmlController = new XmlController();
                 try {
                     XmlController.insertTodoUid(TRList.currentMenu,TRList.currentFilter,vEvent);
                 } catch (DocumentException e) {

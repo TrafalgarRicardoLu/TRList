@@ -51,6 +51,7 @@ public class MapHelper {
      */
     public static Set<String> getFilterNameListByMenuName(String menuName) {
         if (getMapByName(menuName) == null) {
+            System.out.println("Map NULL");
             return new ListOrderedSet<String>();
         }
         return getMapByName(menuName).keySet();

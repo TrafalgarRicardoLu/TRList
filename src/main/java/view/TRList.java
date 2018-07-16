@@ -71,9 +71,9 @@ public class TRList extends Application {
         calendarCreator.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                CalendarController calendarController = new CalendarController();
+                CalendarController CalendarController = new CalendarController();
                 try {
-                    calendarController.createCalendar();
+                    CalendarController.createCalendar();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -88,11 +88,7 @@ public class TRList extends Application {
         emptyListView.setMaxSize(400,150);
         List<String> emptyList = new LinkedList();
         emptyList.add("Add");
-        for(String i: emptyList){
-            System.out.println(i);
-        }
         ObservableList emptyItem = FXCollections.observableArrayList(emptyList);
-        System.out.println(emptyItem.size());
         emptyListView.setItems(emptyItem);
         emptyListView.setCellFactory(new Callback<ListView, ListCell>() {
             @Override
@@ -120,8 +116,8 @@ public class TRList extends Application {
 
     private void setListViewItems(String menuName) {
         //set filters
-        Object[] Filters = MapHelper.getFilterNameListByMenuName(menuName).toArray();
-        ObservableList<Object> Items = FXCollections.observableArrayList(Filters);
+        Object[] filters = MapHelper.getFilterNameListByMenuName(menuName).toArray();
+        ObservableList<Object> items = FXCollections.observableArrayList(filters);
 
         ListView tempList = null;
         if (menuName.equals("label")) {
@@ -131,7 +127,7 @@ public class TRList extends Application {
         } else if (menuName.equals("priority")) {
             tempList = priorityList;
         }
-        tempList.setItems(Items);
+        tempList.setItems(items);
 
         //set events
         tempList.getSelectionModel().selectedItemProperty()
