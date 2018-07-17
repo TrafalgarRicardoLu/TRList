@@ -52,7 +52,7 @@ public class DateHelper {
         date.set(java.util.Calendar.MONTH, monthIndex-1);
         date.set(java.util.Calendar.DAY_OF_MONTH, Integer.parseInt(dates[2])-1);
         date.set(java.util.Calendar.YEAR, Integer.parseInt(dates[0]));
-        date.set(java.util.Calendar.HOUR_OF_DAY, Integer.parseInt(dates[3]));
+        date.set(java.util.Calendar.HOUR,Integer.parseInt(dates[3])-1);
         date.set(java.util.Calendar.MINUTE, Integer.parseInt(dates[4]));
         date.set(java.util.Calendar.SECOND, 0);
 
