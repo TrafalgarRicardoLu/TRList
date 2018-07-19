@@ -21,7 +21,7 @@ public class XMLTest {
     @Test
     public void testDom() throws DocumentException {
         SAXReader reader = new SAXReader();
-        File file = new File("/home/trafalgar/IdeaProjects/TRList/src/test/java/1.xml");
+        File file = new File("/home/trafalgar/IdeaProjects/TRList/src/test/java/TRList.xml");
         Document document = reader.read(file);
         Element root = document.getRootElement();
         Element label = root.element("label");

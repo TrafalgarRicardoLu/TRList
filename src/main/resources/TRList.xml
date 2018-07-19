@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<data xmlns="http://www.TRList.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.TRList.com data.xsd">
+    <todo>
+        <label>
+            <filter name="shopping">
+                <uid>22074b6d-c70a-412a-91d6-cf52d87f4059</uid>
+                <uid>1</uid>
+            </filter>
+            <filter name="working">
+                <uid>ac0175f5-3210-4e18-908d-92aa159c96fc</uid>
+            </filter>
+        </label>
+        <project>
+            <filter name="TRList">
+                <uid>5b28bee2-7d3a-46f5-84de-86ebd3c22c61</uid>
+            </filter>
+            <filter name="TRLuck">
+                <uid>6af6ce65-0e34-4855-9b79-f497cbc4a330</uid>
+            </filter>
+        </project>
+        <priority>
+            <filter name="First">
+                <uid>727c8a14-5ac7-4404-a1a0-74c164f6120a</uid>
+            </filter>
+            <filter name="Second">
+                <uid>2289227e-af93-4fea-8926-d65d86135a11</uid>
+            </filter>
+            <filter name="Third"/>
+        </priority>
+    </todo>
+    <finished/>
+</data>

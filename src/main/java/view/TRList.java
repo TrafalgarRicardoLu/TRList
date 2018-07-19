@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 import net.fortuna.ical4j.data.ParserException;
@@ -27,8 +28,9 @@ import org.dom4j.DocumentException;
 import utils.DateHelper;
 import utils.MapHelper;
 import utils.UidGenerator;
+import utils.conf.ConfigHelper;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -46,6 +48,7 @@ public class TRList extends Application {
     ListView priorityList;
     Button calendarCreator;
     Button calendarLoader;
+    Button xmlLoader;
     static String currentMenu = null;
     static String currentFilter = null;
 
@@ -65,7 +68,8 @@ public class TRList extends Application {
         eventListView = new ListView();
         emptyListView = new ListView();
         calendarCreator = new Button("Create");
-        calendarLoader = new Button("Load");
+        calendarLoader = new Button("Load Cal");
+        xmlLoader = new Button("Load XML");
 
         labelList = new ListView();
         projectList = new ListView();
@@ -182,23 +186,50 @@ public class TRList extends Application {
         menuList.setMinSize(200, 400);
 
         VBox leftView = new VBox();
-        HBox calendarButtons = new HBox();
-        calendarCreator.setPrefSize(100, 80);
+        VBox buttons = new VBox();
+        HBox loadButtons = new HBox();
+        calendarCreator.setPrefSize(200, 100);
+        calendarLoader.setPrefSize(100, 100);
+        xmlLoader.setPrefSize(100, 100);
         calendarCreator.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 CalendarController CalendarController = new CalendarController();
+                XmlController xmlController = new XmlController();
                 try {
+                    xmlController.createXML();
                     CalendarController.createCalendar();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         });
-        calendarLoader.setPrefSize(100, 80);
-        calendarButtons.getChildren().addAll(calendarCreator, calendarLoader);
+        calendarLoader.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    loadFile("cal");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        xmlLoader.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    loadFile("xml");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
-        leftView.getChildren().addAll(calendarButtons, menuList);
+
+        loadButtons.getChildren().addAll(calendarLoader, xmlLoader);
+
+        buttons.getChildren().addAll(calendarCreator, loadButtons);
+        leftView.getChildren().addAll(buttons, menuList);
 
 
         HBox nameBox = new HBox();
@@ -244,7 +275,7 @@ public class TRList extends Application {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                MapHelper.insertEvent(vEvent,currentMenu,currentFilter);
+                MapHelper.insertEvent(vEvent, currentMenu, currentFilter);
                 updateEventList();
                 nameInput.clear();
                 dateInput.clear();
@@ -333,5 +364,31 @@ public class TRList extends Application {
         } else if (currentMenu.equals("priority")) {
             priorityList.setItems(filterList);
         }
+    }
+
+    private void loadFile(String type) throws IOException {
+        String filePath = null;
+        if (type.equals("cal")) {
+            filePath = ConfigHelper.getCalendarPath();
+        } else if (type.equals("xml")) {
+            filePath = ConfigHelper.getXMLPath();
+        }
+        FileChooser calendarChooser = new FileChooser();
+        File file = calendarChooser.showOpenDialog(new Stage());
+
+        FileInputStream fileInputStream = new FileInputStream(file);
+        FileOutputStream fileOutputStream = new FileOutputStream(filePath);
+        byte temp[] = new byte[fileInputStream.available()];
+        fileInputStream.read(temp);
+
+        fileOutputStream.write(new String("").getBytes());
+        fileOutputStream.flush();
+
+        fileOutputStream.write(temp);
+        fileOutputStream.flush();
+
+        fileInputStream.close();
+        fileOutputStream.close();
+
     }
 }
