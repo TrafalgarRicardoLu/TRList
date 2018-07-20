@@ -6,9 +6,12 @@
       <filter name="shopping"> 
         <uid>22074b6d-c70a-412a-91d6-cf52d87f4059</uid>  
         <uid>1</uid> 
-      </filter>
-      <filter name="working">
-        <uid>ac0175f5-3210-4e18-908d-92aa159c96fc</uid>
+      </filter>  
+      <filter name="working"> 
+        <uid>ac0175f5-3210-4e18-908d-92aa159c96fc</uid> 
+      </filter>  
+      <filter name="Cook">
+        <uid>d0f4d114-45ae-4bab-942c-f7f9fd11ae69</uid>
       </filter>
     </label>  
     <project> 
@@ -29,6 +32,5 @@
       <filter name="Third"/> 
     </priority> 
   </todo>  
-  <finished>
-  </finished>
+  <finished/> 
 </data>

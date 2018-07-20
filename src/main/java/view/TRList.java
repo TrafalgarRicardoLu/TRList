@@ -257,7 +257,7 @@ public class TRList extends Application {
         //accomplish the view of right part
         VBox eventBox = new VBox();
         eventBox.setMinSize(400, 400);
-        eventBox.getChildren().addAll(eventListView, eventBox);
+        eventBox.getChildren().addAll(eventListView, newEventBox);
 
         //put two part together
         HBox root = new HBox();
