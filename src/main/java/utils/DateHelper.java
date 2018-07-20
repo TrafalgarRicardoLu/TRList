@@ -14,6 +14,11 @@ public class DateHelper {
 
     private static MONTH[] months = MONTH.values();
 
+    /**
+     * read date in cal form and return it in "YYYY-MM-DD HH:SS"
+     * @param originDate
+     * @return
+     */
     public static String getDate(String originDate){
         String year = originDate.substring(0, 4);
 
@@ -33,6 +38,11 @@ public class DateHelper {
         return date;
     }
 
+    /**
+     * read date in "YYYY-MM-DD HH:SS" and return it in cal form
+     * @param originDate
+     * @return
+     */
     public static DateTime getCalDate(String originDate) {
         String[] dates = originDate.split("-|:| ");
 

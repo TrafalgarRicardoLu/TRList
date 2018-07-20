@@ -2,8 +2,6 @@ package view;
 
 import controller.CalendarController;
 import controller.XmlController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -15,7 +13,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.Summary;
@@ -24,7 +21,6 @@ import utils.DateHelper;
 import utils.MapHelper;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * @author trafalgar
@@ -45,7 +41,6 @@ public class Event extends ListCell<VEvent> {
 
             String summary = item.getSummary().toString().substring(8);
             String endDate = item.getEndDate().toString().substring(6);
-
             endDate = DateHelper.getDate(endDate);
 
             finishedButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -64,11 +59,10 @@ public class Event extends ListCell<VEvent> {
                 }
             });
 
-
             eventName = new Label(summary);
             eventDate = new Label(endDate);
 
-
+            //ui and click event of name
             HBox nameBox = new HBox();
             TextField nameInput = new TextField(eventName.getText());
             nameBox.getChildren().addAll(nameLabel, eventName);
@@ -104,7 +98,7 @@ public class Event extends ListCell<VEvent> {
                 }
             });
 
-
+            //ui and click event of date
             HBox dateBox = new HBox();
             TextField dateInput = new TextField(eventDate.getText());
             dateBox.getChildren().addAll(dateLabel, eventDate);
@@ -149,6 +143,4 @@ public class Event extends ListCell<VEvent> {
             setGraphic(mainBox);
         }
     }
-
-
 }

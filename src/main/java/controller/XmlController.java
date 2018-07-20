@@ -40,7 +40,6 @@ public class XmlController {
      * @throws DocumentException
      */
     public List<Element> getTodoFilterListByMenuName(String menuName) throws DocumentException {
-
         Element root = document.getRootElement();
         Element menu = root.element("todo").element(menuName);
         return menu.elements();
@@ -178,6 +177,11 @@ public class XmlController {
         return finishedUids;
     }
 
+    /**
+     * put the uid of finished event into finished filter
+     * @param uid
+     * @throws IOException
+     */
     public void insertFinishedUid(Uid uid) throws IOException {
         Element root = document.getRootElement();
         Element finished = root.element("finished");
@@ -198,6 +202,12 @@ public class XmlController {
         writer.close();
     }
 
+    /**
+     * delete uid of finished event from each menu and put it into finished filter
+     * @param uid
+     * @throws IOException
+     * @throws DocumentException
+     */
     public void markUidAsFinished(Uid uid) throws IOException, DocumentException {
         deleteTodoUid("label", uid);
         deleteTodoUid("project", uid);
@@ -206,6 +216,13 @@ public class XmlController {
         insertFinishedUid(uid);
     }
 
+    /**
+     * add new filter at specific menu
+     * @param menuName
+     * @param filterName
+     * @throws DocumentException
+     * @throws IOException
+     */
     public void insertFilter(String menuName, String filterName) throws DocumentException, IOException {
         List<Element> menus = document.getRootElement().element("todo").elements();
         Element menu = null;
@@ -224,7 +241,5 @@ public class XmlController {
         XMLWriter writer = new XMLWriter(new FileWriter(XMLPath), format);
         writer.write(document);
         writer.close();
-
-
     }
 }

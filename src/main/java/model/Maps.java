@@ -84,6 +84,13 @@ public class Maps {
         }
     }
 
+    /**
+     * return maps in the form of singlet
+     * @return
+     * @throws DocumentException
+     * @throws IOException
+     * @throws ParserException
+     */
     public static Maps getMaps() throws DocumentException, IOException, ParserException {
         if (maps == null) {
             synchronized (Maps.class) {

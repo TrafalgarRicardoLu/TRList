@@ -75,16 +75,18 @@ public class TRList extends Application {
         projectList = new ListView();
         priorityList = new ListView();
 
+        //init menuList
         setListViewItems("label");
         setListViewItems("project");
         setListViewItems("priority");
 
-        TextField labelFilterInput = new TextField();
-        Button labelFilterButton = new Button("+");
-        labelFilterButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        //box for adding new filter
+        TextField newFilterInput = new TextField();
+        Button newFilterButton = new Button("+");
+        newFilterButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                String filterName = labelFilterInput.getText();
+                String filterName = newFilterInput.getText();
                 MapHelper.insertFilter(currentMenu, filterName);
                 XmlController xmlController = new XmlController();
                 try {
@@ -95,75 +97,34 @@ public class TRList extends Application {
                     e.printStackTrace();
                 }
                 updateMenuList();
-                labelFilterInput.clear();
+                newFilterInput.clear();
             }
         });
-        HBox labelNewFilterBox = new HBox();
-        labelNewFilterBox.getChildren().addAll(labelFilterInput, labelFilterButton);
+        HBox newFilterBox = new HBox();
+        newFilterBox.getChildren().addAll(newFilterInput, newFilterButton);
 
-        TextField projectFilterInput = new TextField();
-        Button projectFilterButton = new Button("+");
-        projectFilterButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                String filterName = projectFilterInput.getText();
-                MapHelper.insertFilter(currentMenu, filterName);
-                XmlController xmlController = new XmlController();
-                try {
-                    xmlController.insertFilter(currentMenu, filterName);
-                } catch (DocumentException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                updateMenuList();
-                projectFilterInput.clear();
-            }
-        });
-        HBox projectNewFilterBox = new HBox();
-        projectNewFilterBox.getChildren().addAll(projectFilterInput, projectFilterButton);
-
-        TextField priorityFilterInput = new TextField();
-        Button priorityFilterButton = new Button("+");
-        priorityFilterButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                String filterName = priorityFilterInput.getText();
-                MapHelper.insertFilter(currentMenu, filterName);
-                XmlController xmlController = new XmlController();
-                try {
-                    xmlController.insertFilter(currentMenu, filterName);
-                } catch (DocumentException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                updateMenuList();
-                priorityFilterInput.clear();
-            }
-        });
-        HBox priorityNewFilterBox = new HBox();
-        priorityNewFilterBox.getChildren().addAll(priorityFilterInput, priorityFilterButton);
 
         VBox labelFilterBox = new VBox();
-        labelFilterBox.getChildren().addAll(labelList, labelNewFilterBox);
+        labelFilterBox.getChildren().add(labelList);
         labelFilterBox.setPadding(new Insets(0));
 
         VBox projectFilterBox = new VBox();
-        projectFilterBox.getChildren().addAll(projectList, projectNewFilterBox);
+        projectFilterBox.getChildren().add(projectList);
         projectFilterBox.setPadding(new Insets(0));
 
 
         VBox priorityFilterBox = new VBox();
-        priorityFilterBox.getChildren().addAll(priorityList, priorityNewFilterBox);
+        priorityFilterBox.getChildren().add(priorityList);
         priorityFilterBox.setPadding(new Insets(0));
 
-
+        //put menuList into titlePane
         TitledPane labelPane = new TitledPane("Label", labelFilterBox);
         labelPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 currentMenu = "label";
+                checkContain(labelFilterBox,projectFilterBox,priorityFilterBox,newFilterBox);
+                labelFilterBox.getChildren().add(newFilterBox);
             }
         });
         TitledPane projectPane = new TitledPane("Project", projectFilterBox);
@@ -171,6 +132,8 @@ public class TRList extends Application {
             @Override
             public void handle(MouseEvent event) {
                 currentMenu = "project";
+                checkContain(labelFilterBox,projectFilterBox,priorityFilterBox,newFilterBox);
+                projectFilterBox.getChildren().add(newFilterBox);
             }
         });
         TitledPane priorityPane = new TitledPane("Priority", priorityFilterBox);
@@ -178,6 +141,8 @@ public class TRList extends Application {
             @Override
             public void handle(MouseEvent event) {
                 currentMenu = "priority";
+                checkContain(labelFilterBox,projectFilterBox,priorityFilterBox,newFilterBox);
+                priorityFilterBox.getChildren().add(newFilterBox);
             }
         });
 
@@ -185,7 +150,7 @@ public class TRList extends Application {
         menuList.getPanes().addAll(labelPane, projectPane, priorityPane);
         menuList.setMinSize(200, 400);
 
-        VBox leftView = new VBox();
+        //add buttons for loading and creating
         VBox buttons = new VBox();
         HBox loadButtons = new HBox();
         calendarCreator.setPrefSize(200, 100);
@@ -228,10 +193,12 @@ public class TRList extends Application {
 
         loadButtons.getChildren().addAll(calendarLoader, xmlLoader);
 
+        //accomplish the view of left part
         buttons.getChildren().addAll(calendarCreator, loadButtons);
+        VBox leftView = new VBox();
         leftView.getChildren().addAll(buttons, menuList);
 
-
+        //add box for adding new event
         HBox nameBox = new HBox();
         nameBox.getChildren().addAll(nameLabel, nameInput);
 
@@ -245,7 +212,6 @@ public class TRList extends Application {
         StackPane buttonStack = new StackPane();
         buttonStack.getChildren().addAll(addButton);
         buttonStack.setAlignment(Pos.CENTER_RIGHT);
-
 
         addButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -282,17 +248,18 @@ public class TRList extends Application {
             }
         });
 
-        HBox mainBox = new HBox();
-        mainBox.setPadding(new Insets(15, 12, 15, 10));
-        mainBox.setSpacing(10);
-        mainBox.getChildren().addAll(infoBox, buttonStack);
+        HBox newEventBox = new HBox();
+        newEventBox.setPadding(new Insets(15, 12, 15, 10));
+        newEventBox.setSpacing(10);
+        newEventBox.getChildren().addAll(infoBox, buttonStack);
         HBox.setHgrow(buttonStack, Priority.ALWAYS);
 
-
+        //accomplish the view of right part
         VBox eventBox = new VBox();
         eventBox.setMinSize(400, 400);
-        eventBox.getChildren().addAll(eventListView, mainBox);
+        eventBox.getChildren().addAll(eventListView, eventBox);
 
+        //put two part together
         HBox root = new HBox();
         root.getChildren().addAll(leftView, eventBox);
 
@@ -381,14 +348,28 @@ public class TRList extends Application {
         byte temp[] = new byte[fileInputStream.available()];
         fileInputStream.read(temp);
 
+        //clear origin file
         fileOutputStream.write(new String("").getBytes());
         fileOutputStream.flush();
 
+        //write new data
         fileOutputStream.write(temp);
         fileOutputStream.flush();
 
         fileInputStream.close();
         fileOutputStream.close();
+    }
+
+    private void checkContain(VBox vBox1, VBox vBox2, VBox vBox3, HBox newFilterBox) {
+        if (vBox1.getChildren().contains(newFilterBox)) {
+            vBox1.getChildren().remove(newFilterBox);
+        }
+        if (vBox2.getChildren().contains(newFilterBox)) {
+            vBox2.getChildren().remove(newFilterBox);
+        }
+        if (vBox3.getChildren().contains(newFilterBox)) {
+            vBox3.getChildren().remove(newFilterBox);
+        }
 
     }
 }

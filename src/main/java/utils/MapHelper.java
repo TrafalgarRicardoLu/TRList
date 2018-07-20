@@ -86,12 +86,21 @@ public class MapHelper {
         return null;
     }
 
+    /**
+     * delete uid at all menu
+     * @param uid
+     */
     public static void deleteEventByUid(Uid uid) {
         deleteEventAtMenu(uid, "label");
         deleteEventAtMenu(uid, "project");
         deleteEventAtMenu(uid, "priority");
     }
 
+    /**
+     * delete uid at specific menu
+     * @param uid
+     * @param menuName
+     */
     private static void deleteEventAtMenu(Uid uid, String menuName) {
         Map menuMap = getMapByName(menuName);
 
@@ -114,6 +123,12 @@ public class MapHelper {
         }
     }
 
+    /**
+     * add new event into specific filter
+     * @param event
+     * @param menuName
+     * @param filterName
+     */
     public static void insertEvent(VEvent event,String menuName, String filterName){
         HashMap menuMap = getMapByName(menuName);
         List eventList = getEventListByFilterName(menuName,filterName);
@@ -123,6 +138,11 @@ public class MapHelper {
 
     }
 
+    /**
+     * add new filter(the key of map) into specific map
+     * @param menuName
+     * @param filterName
+     */
     public static void insertFilter(String menuName,String filterName){
         HashMap menuMap = getMapByName(menuName);
         menuMap.put(filterName,new LinkedList<VEvent>());

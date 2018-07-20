@@ -59,6 +59,11 @@ public class CalendarController {
         }
     }
 
+    /**
+     * add event when calendar is empty, it need to add some properties at begin
+     * @param vEvent
+     * @throws IOException
+     */
     public void updateCalendarIfEmpty(VEvent vEvent) throws IOException {
         Calendar calendar = new Calendar();
 
@@ -72,7 +77,12 @@ public class CalendarController {
         outputter.output(calendar, fileOutputStream);
     }
 
-
+    /**
+     * remove old event and add new event
+     * @param vEvent
+     * @throws IOException
+     * @throws ParserException
+     */
     public void updateCalendarNotEmpty(VEvent vEvent) throws IOException, ParserException {
             FileInputStream fin = new FileInputStream(calendarPath);
             CalendarBuilder builder = new CalendarBuilder();
@@ -112,6 +122,4 @@ public class CalendarController {
 
         return vEvents;
     }
-
-
 }
